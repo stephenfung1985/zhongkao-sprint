@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中考冲刺 · 每日30分钟</title>
+<link rel="stylesheet" href="css/style.css?v=20260903f">
+<script>
+/* 在首屏绘制前定好主题，避免刷新时闪一下白 */
+(function(){
+  try{
+    var t = localStorage.getItem("zk2027_theme");
+    if(t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-dot"></span>
+    <span class="brand-name">中考冲刺 · 每天30分钟</span>
+  </div>
+  <div class="countdown">
+    <div class="cd-num" id="cdDays">--</div>
+    <div class="cd-label">天后中考<br><span id="cdDate">2027-06-20</span></div>
+  </div>
+  <div class="streak">
+    <div class="streak-num" id="streakNum">0</div>
+    <div class="streak-label">连续打卡</div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换亮色/暗色" title="切换亮色/暗色">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <g class="ic-sun">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+      </g>
+      <path class="ic-moon" d="M20 13.4A8 8 0 1 1 10.6 4a6.3 6.3 0 0 0 9.4 9.4z" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</header>
+
+<div class="wish" id="wishBox" title="点一下换一句">
+  <div class="wish-text" id="wishText"></div>
+  <div class="wish-from" id="wishFrom"></div>
+</div>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="today">今日任务</button>
+  <button class="tab" data-tab="calendar">打卡日历</button>
+  <button class="tab" data-tab="wrong">错题本</button>
+  <button class="tab" data-tab="plan">290天规划</button>
+  <button class="tab" data-tab="stats">数据看板</button>
+</nav>
+
+<main>
+
+<!-- ===================== 今日任务 ===================== -->
+<section class="panel active" id="panel-today">
+
+  <div class="daycard" id="dayCard">
+    <div class="daycard-head">
+      <div>
+        <div class="day-no" id="dayNo">Day --</div>
+        <div class="day-date" id="dayDate"></div>
+      </div>
+      <div class="phase-badge" id="phaseBadge">--</div>
+    </div>
+    <div class="day-banner" id="dayBanner"></div>
+    <div class="daycard-body">
+      <div class="subject-chip" id="subjChip">--</div>
+      <h2 class="lesson-title" id="lessonTitle">加载中…</h2>
+      <p class="lesson-goal" id="lessonGoal"></p>
+      <div class="mode-note" id="modeNote"></div>
+    </div>
+    <div class="daycard-foot">
+      <div class="progress-steps" id="progressSteps"></div>
+      <div class="timer" id="timer">00:00</div>
+    </div>
+  </div>
+
+  <div class="date-nav">
+    <button id="prevDay">← 前一天</button>
+    <button id="jumpToday">回到今天</button>
+    <button id="nextDay">后一天 →</button>
+  </div>
+
+  <!-- STEP 0 : 开始 -->
+  <div class="stage" id="stage-start">
+    <div class="stage-inner">
+      <p class="big-hint">今天只要 <b>30 分钟</b>。<br>不用一次学会，只要今天比昨天少错一道送分题。</p>
+      <button class="btn-primary" id="btnStart">开始今天的 30 分钟</button>
+      <p class="tiny" id="doneNote" style="display:none"></p>
+    </div>
+  </div>
+
+  <!-- STEP 1 : 英语微剂量 -->
+  <div class="stage" id="stage-warmup" style="display:none">
+    <div class="stage-head"><span class="step-tag">STEP 1 · 5分钟</span><h3 id="warmupTitle">英语微剂量</h3></div>
+    <div id="warmupBody"></div>
+    <button class="btn-primary" id="btnWarmupNext" style="display:none">进入 STEP 2 →</button>
+  </div>
+
+  <!-- STEP 2 : 苏格拉底对话 -->
+  <div class="stage" id="stage-socratic" style="display:none">
+    <div class="stage-head">
+      <span class="step-tag">STEP 2 · 8分钟</span>
+      <h3>先想明白，再做题</h3>
+      <button class="voice-btn" id="voiceToggle" title="开启/关闭语音讲解">
+        <span id="voiceIndicator">🔊 语音讲解</span>
+      </button>
+    </div>
+    <div class="chat" id="chatBox"></div>
+    <div class="chat-input" id="chatInput"></div>
+    <button class="btn-primary" id="btnSocDone" style="display:none">我想明白了，去练 →</button>
+  </div>
+
+  <!-- STEP 3 : 练习 -->
+  <div class="stage" id="stage-quiz" style="display:none">
+    <div class="stage-head"><span class="step-tag">STEP 3 · 13分钟</span><h3>精准练习 <span id="quizCounter" class="qcount"></span></h3></div>
+    <div id="quizBody"></div>
+  </div>
+
+  <!-- STEP 4 : 复盘打卡 -->
+  <div class="stage" id="stage-review" style="display:none">
+    <div class="stage-head"><span class="step-tag">STEP 4 · 4分钟</span><h3>复盘 & 打卡</h3></div>
+    <div id="reviewBody"></div>
+  </div>
+
+</section>
+
+<!-- ===================== 打卡日历 ===================== -->
+<section class="panel" id="panel-calendar">
+  <div class="cal-legend">
+    <span><i class="sw sw0"></i>未开始</span>
+    <span><i class="sw sw1"></i>已打卡</span>
+    <span><i class="sw sw2"></i>满分日</span>
+    <span><i class="sw swm"></i>里程碑</span>
+  </div>
+  <div id="calendarBox"></div>
+</section>
+
+<!-- ===================== 错题本 ===================== -->
+<section class="panel" id="panel-wrong">
+  <div class="wrong-head">
+    <div class="wrong-stat" id="wrongStat"></div>
+    <div class="filters" id="wrongFilters"></div>
+  </div>
+  <div id="wrongBox"></div>
+</section>
+
+<!-- ===================== 规划 ===================== -->
+<section class="panel" id="panel-plan">
+  <div id="planBox"></div>
+</section>
+
+<!-- ===================== 数据 ===================== -->
+<section class="panel" id="panel-stats">
+  <div id="statsBox"></div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <button id="btnExport">导出学习数据</button>
+  <button id="btnImport">导入数据</button>
+  <input type="file" id="fileImport" accept=".json" style="display:none">
+  <button id="btnReset" class="danger">清空全部记录</button>
+  <p class="tiny">数据只保存在这台电脑的浏览器里，不会上传。换电脑请先"导出"。</p>
+</footer>
+
+<script src="data/plan-config.js?v=20260903f"></script>
+<script src="data/family-messages.js?v=20260903f"></script>
+<script src="data/english-daily.js?v=20260903f"></script>
+<script src="data/lessons-math.js?v=20260903f"></script>
+<script src="data/lessons-english.js?v=20260903f"></script>
+<script src="data/lessons-physics.js?v=20260903f"></script>
+<script src="data/lessons-chemistry.js?v=20260903f"></script>
+<script src="data/lessons-chinese.js?v=20260903f"></script>
+<script src="data/lessons-politics.js?v=20260903f"></script>
+<script src="data/lessons-history.js?v=20260903f"></script>
+<script src="data/lessons-review.js?v=20260903f"></script>
+<script src="js/storage.js?v=20260903f"></script>
+<script src="js/plan.js?v=20260903f"></script>
+<script src="js/engine.js?v=20260903f"></script>
+<script src="js/app.js?v=20260903f"></script>
+</body>
+</html>
