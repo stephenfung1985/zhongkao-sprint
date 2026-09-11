@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>试卷深度解析 · 错题闭环工作台</title>
+<link rel="stylesheet" href="css/style.css">
+<script>
+/* 首屏前定好主题，避免闪白 */
+(function(){
+  try{
+    var t = localStorage.getItem("zk2027_theme");
+    if(t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-dot"></span>
+    <span class="brand-name">试卷深度解析 · 错题闭环</span>
+  </div>
+  <div class="countdown">
+    <div class="cd-num" id="cdDays">--</div>
+    <div class="cd-label">天后中考<br><span id="cdDate">2027-06-20</span></div>
+  </div>
+  <a class="exam-link" href="index.html" title="回每日30分钟">← 每日冲刺</a>
+  <button class="theme-btn" id="themeBtn" aria-label="切换亮色/暗色" title="切换亮色/暗色">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <g class="ic-sun">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+      </g>
+      <path class="ic-moon" d="M20 13.4A8 8 0 1 1 10.6 4a6.3 6.3 0 0 0 9.4 9.4z" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</header>
+
+<main class="exam-main">
+
+  <!-- ================= 视图1：试卷列表 ================= -->
+  <section id="view-home">
+    <div class="exam-hero">
+      <div>
+        <div class="exam-hero-title">卷子深度解析系统</div>
+        <div class="exam-hero-sub">深挖错误原因 → 举一反三 → 错题闭环 → 30分钟小卷验证。解决一道题，搞通一类型。</div>
+      </div>
+      <button class="btn-primary" id="btnNewExam">＋ 新建试卷分析</button>
+    </div>
+    <div class="exam-stat-row" id="examStatRow"></div>
+    <div id="examList"></div>
+  </section>
+
+  <!-- ================= 视图2：新建/编辑试卷 ================= -->
+  <section id="view-editor" style="display:none">
+    <div class="panel-head">
+      <button class="btn-ghost" data-back="home">← 返回列表</button>
+      <h2 id="editorTitle">新建试卷分析</h2>
+      <span class="editor-save-hint">录入完成后点「保存试卷」</span>
+    </div>
+
+    <div class="card exam-form">
+      <div class="form-grid">
+        <label>科目
+          <select id="efSubject"></select>
+        </label>
+        <label>试卷标题
+          <input type="text" id="efTitle" placeholder="如：九上第一单元化学测试">
+        </label>
+        <label>考试日期
+          <input type="date" id="efDate">
+        </label>
+        <label>试卷来源
+          <select id="efSource">
+            <option value="学校测验">学校测验</option>
+            <option value="单元考">单元考</option>
+            <option value="期中/期末">期中/期末</option>
+            <option value="模拟考">模拟考</option>
+            <option value="真题卷">真题卷</option>
+            <option value="自己出的">自己出的</option>
+          </select>
+        </label>
+        <label>卷面成绩（可留空）
+          <input type="text" id="efScore" placeholder="如：85/100">
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title-row">
+        <h3>错题清单 <span class="tiny">只录做错的题，每题都要深挖原因</span></h3>
+        <button class="btn-ghost" id="btnAddItem">＋ 添加一道错题</button>
+      </div>
+      <div id="editorItems"></div>
+    </div>
+
+    <div class="editor-actions">
+      <button class="btn-ghost" data-back="home">取消</button>
+      <button class="btn-primary" id="btnSaveExam">保存试卷，进入闭环工作台 →</button>
+    </div>
+  </section>
+
+  <!-- ================= 视图3：详情工作台 ================= -->
+  <section id="view-detail" style="display:none">
+    <div class="panel-head">
+      <button class="btn-ghost" data-back="home">← 返回列表</button>
+      <h2 id="detailTitle">试卷复盘工作台</h2>
+      <button class="btn-ghost danger" id="btnDelExam">删除本卷</button>
+    </div>
+
+    <div class="card detail-meta" id="detailMeta"></div>
+    <div class="closed-progress" id="closedProgress"></div>
+
+    <div class="card">
+      <div class="card-title-row">
+        <h3>错题闭环清单</h3>
+        <span class="tiny">每道错题：看深挖 → 做举一反三（全对）→ 确认闭环</span>
+      </div>
+      <div id="detailItems"></div>
+    </div>
+
+    <div class="card" id="reviewCard" style="display:none">
+      <div class="card-title-row">
+        <h3>复盘总结</h3>
+        <button class="btn-ghost" id="btnGenReview">生成 / 刷新复盘总结</button>
+      </div>
+      <div id="reviewBody"></div>
+    </div>
+
+    <div class="card" id="testCard" style="display:none">
+      <div class="card-title-row">
+        <h3>30 分钟小卷测验</h3>
+        <span class="tiny">错题全部闭环后生成，验证是不是真懂</span>
+      </div>
+      <div id="testBody"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= 选题弹层（从课程库选题） ================= -->
+<div class="modal-mask" id="pickModal" style="display:none">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>从课程库选错题</h3>
+      <button class="btn-ghost" id="pickClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <label>知识点（先选知识点，再选题）
+        <select id="pickPoint"><option value="">— 选择知识点 —</option></select>
+      </label>
+      <div id="pickQuestionList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 举一反三 / 小测验 弹层 ================= -->
+<div class="modal-mask" id="quizModal" style="display:none">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <h3 id="quizModalTitle">举一反三</h3>
+      <div class="quiz-modal-tools">
+        <span class="timer" id="quizTimer" style="display:none">30:00</span>
+        <button class="btn-ghost" id="quizClose">关闭</button>
+      </div>
+    </div>
+    <div id="quizCounter" class="qcount"></div>
+    <div id="quizBody"></div>
+    <div id="quizResult" style="display:none"></div>
+  </div>
+</div>
+
+<footer class="foot">
+  <button id="btnExport">导出全部数据</button>
+  <button id="btnImport">导入数据</button>
+  <input type="file" id="fileImport" accept=".json" style="display:none">
+  <p class="tiny">试卷分析与错题闭环记录保存在这台电脑的本地（与每日冲刺同一份学习数据），不会上传。
+    想换电脑备份，用「导出全部数据」存成 json，再到新设备「导入数据」。</p>
+</footer>
+
+<script src="data/plan-config.js"></script>
+<script src="data/lessons-math.js"></script>
+<script src="data/lessons-english.js"></script>
+<script src="data/lessons-physics.js"></script>
+<script src="data/lessons-chemistry.js"></script>
+<script src="data/lessons-chinese.js"></script>
+<script src="data/lessons-politics.js"></script>
+<script src="data/lessons-history.js"></script>
+<script src="data/lessons-review.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/exam.js"></script>
+</body>
+</html>

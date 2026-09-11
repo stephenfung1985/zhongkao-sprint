@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>中考冲刺 · 每日30分钟</title>
-<link rel="stylesheet" href="css/style.css?v=20260903f">
+<link rel="stylesheet" href="css/style.css">
 <script>
 /* 在首屏绘制前定好主题，避免刷新时闪一下白 */
 (function(){
@@ -30,6 +30,7 @@
     <div class="streak-num" id="streakNum">0</div>
     <div class="streak-label">连续打卡</div>
   </div>
+  <a class="exam-link" href="exam.html" title="每套卷子深度解析：深挖错因→举一反三→闭环→30分钟小卷验证">📄 卷子分析</a>
   <button class="theme-btn" id="themeBtn" aria-label="切换亮色/暗色" title="切换亮色/暗色">
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
          stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -42,6 +43,8 @@
   </button>
 </header>
 
+<div class="syncbar" id="syncBar"></div>
+
 <div class="wish" id="wishBox" title="点一下换一句">
   <div class="wish-text" id="wishText"></div>
   <div class="wish-from" id="wishFrom"></div>
@@ -50,6 +53,7 @@
 <nav class="tabs">
   <button class="tab active" data-tab="today">今日任务</button>
   <button class="tab" data-tab="calendar">打卡日历</button>
+  <button class="tab" data-tab="vocab">背单词</button>
   <button class="tab" data-tab="wrong">错题本</button>
   <button class="tab" data-tab="plan">290天规划</button>
   <button class="tab" data-tab="stats">数据看板</button>
@@ -142,6 +146,11 @@
   <div id="calendarBox"></div>
 </section>
 
+<!-- ===================== 一周背单词 ===================== -->
+<section class="panel" id="panel-vocab">
+  <div id="vocabBox"></div>
+</section>
+
 <!-- ===================== 错题本 ===================== -->
 <section class="panel" id="panel-wrong">
   <div class="wrong-head">
@@ -168,23 +177,26 @@
   <button id="btnImport">导入数据</button>
   <input type="file" id="fileImport" accept=".json" style="display:none">
   <button id="btnReset" class="danger">清空全部记录</button>
-  <p class="tiny">数据只保存在这台电脑的浏览器里，不会上传。换电脑请先"导出"。</p>
+  <p class="tiny">学习记录保存在这台电脑的 <b>学习数据/学习记录.json</b> 文件里，不会上传。
+    想额外备份或换电脑，复制这个文件即可，也可以点上面的"导出学习数据"。</p>
 </footer>
 
-<script src="data/plan-config.js?v=20260903f"></script>
-<script src="data/family-messages.js?v=20260903f"></script>
-<script src="data/english-daily.js?v=20260903f"></script>
-<script src="data/lessons-math.js?v=20260903f"></script>
-<script src="data/lessons-english.js?v=20260903f"></script>
-<script src="data/lessons-physics.js?v=20260903f"></script>
-<script src="data/lessons-chemistry.js?v=20260903f"></script>
-<script src="data/lessons-chinese.js?v=20260903f"></script>
-<script src="data/lessons-politics.js?v=20260903f"></script>
-<script src="data/lessons-history.js?v=20260903f"></script>
-<script src="data/lessons-review.js?v=20260903f"></script>
-<script src="js/storage.js?v=20260903f"></script>
-<script src="js/plan.js?v=20260903f"></script>
-<script src="js/engine.js?v=20260903f"></script>
-<script src="js/app.js?v=20260903f"></script>
+<script src="data/plan-config.js"></script>
+<script src="data/family-messages.js"></script>
+<script src="data/english-daily.js"></script>
+<script src="data/vocab-week.js"></script>
+<script src="data/lessons-math.js"></script>
+<script src="data/lessons-english.js"></script>
+<script src="data/lessons-physics.js"></script>
+<script src="data/lessons-chemistry.js"></script>
+<script src="data/lessons-chinese.js"></script>
+<script src="data/lessons-politics.js"></script>
+<script src="data/lessons-history.js"></script>
+<script src="data/lessons-review.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/plan.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/vocab.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

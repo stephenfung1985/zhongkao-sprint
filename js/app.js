@@ -8,7 +8,12 @@ let timerId = null, seconds = 0;
 let runState = { warmup: null, soc: null, quiz: null, mood: null };
 
 /* ---------------- 启动 ---------------- */
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
+  // 先把磁盘上的记录读回来再渲染，否则会先闪一下「没有记录」
+  await DB.init();
+  DB.onSyncChange(renderSyncStatus);
+  renderSyncStatus(DB.syncState());
+
   bindTabs();
   bindFooter();
   bindDateNav();
@@ -20,6 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
   loadDay();
   renderCalendar();
   renderWrongBook();
+  Vocab.render();
   renderPlan();
   renderStats();
   renderHeader();
@@ -34,6 +40,7 @@ function bindTabs() {
       $("panel-" + b.dataset.tab).classList.add("active");
       if (b.dataset.tab === "calendar") renderCalendar();
       if (b.dataset.tab === "wrong") renderWrongBook();
+      if (b.dataset.tab === "vocab") Vocab.render();
       if (b.dataset.tab === "stats") renderStats();
       if (b.dataset.tab === "plan") renderPlan();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -152,6 +159,36 @@ function showWish() {
   $("wishBox").onclick = showWish;   // 点一下换下一句
 }
 
+/* ============================================================
+   保存状态条 —— 让「数据到底存住了没有」永远可见
+   ============================================================ */
+function renderSyncStatus(s) {
+  const el = $("syncBar");
+  if (!el) return;
+
+  if (s.error === "file") {
+    // 直接双击 index.html 打开的，数据只在浏览器里，随时可能被清掉
+    el.className = "syncbar bad";
+    el.innerHTML = `<b>⚠ 打开方式不对，记录可能会丢。</b>
+      现在是直接双击网页文件打开的，打卡记录只存在浏览器缓存里，
+      清理浏览器或清理软件扫一遍就会没。<br>
+      请关掉这个页面，改成双击文件夹里的 <b>启动学习平台.bat</b> —— 那样数据会实时存到磁盘文件里。`;
+    return;
+  }
+  if (!s.server) {
+    el.className = "syncbar bad";
+    el.innerHTML = `<b>⚠ 没连上本地服务器，这次的记录只存在浏览器里。</b>
+      多半是那个黑色命令行窗口被关掉了。关掉页面重新双击 <b>启动学习平台.bat</b> 即可，
+      已经做过的进度不会丢。${s.error ? `<br><span style="opacity:.7">${esc(s.error)}</span>` : ""}`;
+    return;
+  }
+  el.className = "syncbar ok";
+  const t = s.lastSaved;
+  const time = t ? `${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}:${String(t.getSeconds()).padStart(2, "0")}` : "";
+  el.innerHTML = `✓ 已存到磁盘${time ? `（最近保存 ${time}）` : ""}
+    <span style="opacity:.65">文件：学习数据/学习记录.json　·　浏览器清理不会影响它</span>`;
+}
+
 function renderHeader() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const left = Plan.daysLeft(today);
@@ -215,7 +252,9 @@ function loadDay() {
   ["stage-warmup", "stage-socratic", "stage-quiz", "stage-review"].forEach(s => $(s).style.display = "none");
   $("stage-start").style.display = "block";
   runState = { warmup: null, soc: null, quiz: null, mood: null };
-  stopTimer(); seconds = 0; $("timer").textContent = "00:00";
+  stopTimer(); seconds = 0;
+  $("timer").textContent = "00:00";
+  $("timer").style.color = "";      // 清掉上一天超时留下的红色
   setSteps(-1);
 
   const note = $("doneNote");
@@ -456,8 +495,9 @@ function goReview() {
     </div>
 
     <div class="feyn">
-      <p style="font-size:14px;margin:0 0 8px"><b>费曼一句话</b>　${esc(prompt)}</p>
-      <textarea id="feynIn" placeholder="不用写得漂亮，写得明白就行。写不出来 = 其实还没懂。"></textarea>
+      <p style="font-size:13px;margin:0 0 8px;color:#5A6270"><b>⏱ 3分钟费曼复盘</b>　按脚本讲一遍：【一句话】→【展开】→答【自查】→说出【易错】坑；最后看一眼【考法】，知道它在中考怎么考</p>
+      <div style="font-size:14px;line-height:1.85;white-space:pre-line;background:#F6F5F1;border:1px solid #E4E3DD;border-radius:10px;padding:10px 12px;margin:0 0 10px">${esc(prompt)}</div>
+      <textarea id="feynIn" placeholder="用你自己的话写下来：一句话 + 自查三问的答案 + 这个坑记住了。写得明白就行，写不出来 = 其实还没懂。"></textarea>
     </div>
 
     <p style="font-size:14px;margin:18px 0 0"><b>今天感觉怎么样？</b></p>

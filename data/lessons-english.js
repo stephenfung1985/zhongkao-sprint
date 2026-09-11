@@ -1,5 +1,5 @@
 /* ============================================================
-   lessons-english.js — 英语课程库（12 课）
+   lessons-english.js — 英语课程库（15 课）
    定位：八下期末 65.5/120（54.6%），且期中→期末**下滑9.5分**，
         是全卷唯一在退步的科目，也是最大失分项（丢54.5分）。
    策略：周二整块 22 分钟攻语法（本文件）+ 每天 5 分钟微剂量攻词汇。
@@ -14,7 +14,7 @@ window.LESSONS.english = [
   goal:"三单是英语最基础也最高频的失分点，天津卷单选、完形、写作全都在考。这一课把它变成条件反射。",
   key:"主语是 he/she/it 或单数名词时，动词加 s/es；但 doesn't / does 后面的动词必须还原。",
   recall:"He ____ (go) to school. 空里填什么？He doesn't ____ (go) 呢？为什么不一样？",
-  feynman:"用一句话说清：什么时候动词要加 s，什么时候加了反而是错的？",
+  feynman:"【一句话】主语是he/she/it或单数名词时，一般现在时动词加s/es；但句中一旦出现does/doesn't，动词就要还原成原形——三单标记一句只出现一次。\n【展开】①变形四条：一般加s；以s/x/ch/sh/o结尾加es（goes、watches、does）；辅音字母+y变y为i加es（studies、flies）；元音字母+y直接加s（plays、buys）；②and连接两个主语是复数，动词不加s；with、as well as、together with、along with不改变主语，只看前面那个；③There be用就近原则。\n【自查】He doesn't ____ (like) it. 填什么？Tom, together with his parents, ____ (be) here. 又填什么？\n【易错】doesn't后面还加s；把with当成and处理；study的三单写成studys。\n【考法】2025和2026的单项填空15道题里都没有单独的三单题——但 2025·56-65、2026·56-65 综合填空和 2025·66、2026·66 书面表达都按「如果形式错误可酌情计分」判卷，三单错一处就掉一档。结论：它已经不是选择题的分，是作文和填空的分，写完必须逐句回查。",
   socratic:[
     { ask:"先建立感觉。`He ____ (like) music.` 应该填什么？",
       opts:[
@@ -91,7 +91,7 @@ window.LESSONS.english = [
   goal:"一般过去时是完形填空和阅读的主时态。这一课解决：什么时候用过去时，不规则动词怎么办。",
   key:"看到 yesterday / last / ago / in+过去年份，一律用过去时；did / didn't 后面动词还原。",
   recall:"He ____ (go) to Beijing last week. 填什么？He didn't ____ (go) 呢？",
-  feynman:"说清楚：为什么 didn't 后面的动词不用过去式？",
+  feynman:"【一句话】看到yesterday、last...、...ago、in+过去年份、just now，全句动词往回走；但did/didn't一出现，后面的动词必须还原成原形。\n【展开】①规则变化：直接加ed；以e结尾加d；辅音字母+y变y为i加ed（studied）；重读闭音节末尾只有一个辅音字母要双写（stopped、planned）；②高频不规则：go-went、buy-bought、bring-brought、catch-caught、take-took、think-thought、teach-taught、read-read（拼写不变读音变）；③be动词用was/were；④过去进行时was/were doing常与when、while搭配：when后接短暂动作，while后接持续动作。\n【自查】He didn't ____ (go) there. 填什么？stop的过去式为什么要双写p？\n【易错】didn't后面用过去式；不规则动词硬加ed；when和while后面的时态搭配弄反。\n【考法】2025·10 The mobile phone ___ when I was making a cake（填rang，一般过去时＋过去进行时）；书面表达连续两年要求通篇过去时：2025·66 以 Last summer holiday 开头写李华的一次经历、2024·86 以 Last Thursday 开头讲王红做好事；2026·16-25 完形填空是William的人物故事，也是通篇过去时叙事。结论：过去时的分不在单选，在完形和作文。",
   socratic:[
     { ask:"`I ____ (see) him yesterday.` 填什么？",
       opts:[
@@ -171,7 +171,7 @@ window.LESSONS.english = [
   goal:"现在完成时是中考语法的重点难点，也是单选必考项。这一课解决：什么时候用它，since/for 怎么选。",
   key:"have/has + 过去分词；since 接时间点，for 接时间段；有明确过去时间时不能用完成时。",
   recall:"since 和 for 后面分别接什么？have been to 和 have gone to 有什么区别？",
-  feynman:"用一句话说清：现在完成时和一般过去时最大的区别是什么？",
+  feynman:"【一句话】have/has done强调过去的动作对现在造成的影响或一直延续到现在；一般过去时只说过去发生了，跟现在没关系。\n【展开】①标志词：already、yet、just、ever、never、before、so far、recently、in the past few years；②for后接一段时间，since后接时间点或过去时间的句子，两者都只能跟延续性动词；③非延续性动词必须转换：come→be here、buy→have、borrow→keep、die→be dead、begin/start→be on、leave→be away、join→be in或be a member of、open→be open；④have been to表示去过已回来，have gone to表示去了还没回来；⑤句中出现明确的过去时间点，就不能用现在完成时。\n【自查】He has ____ (leave) for two years. 该怎么改写？have been to和have gone to差在哪？\n【易错】延续性动词没转换（写成has died for two years）；has went这种形式错误；跟一般过去时混用。\n【考法】2025·1-15 和 2026·1-15 的单项填空都没有单独考现在完成时（时态位留给了一般过去时、现在进行时和被动语态），但 2025·8 那道题的句尾就是 because I've told him already，完形和阅读里也常出现。结论：优先级可以下调，但必须读得懂、作文里敢用，别把整块时间花在死磕 for／since 上。",
   socratic:[
     { ask:"对比两句：`I lost my key.` 和 `I have lost my key.` 你觉得哪句在暗示「钥匙现在还没找到」？",
       opts:[
@@ -249,7 +249,7 @@ window.LESSONS.english = [
   goal:"「主将从现」是天津卷单选年年出现的固定考点，规则死板、好拿分。这一课把它彻底焊死。",
   key:"if / when / as soon as / until / before / after 引导的时间或条件状语从句里，用一般现在时表示将来。",
   recall:"I will call you when he ____ (come) back. 空里填什么？为什么不填 will come？",
-  feynman:"说清楚：什么叫「主将从现」？哪些词后面要用这条规则？",
+  feynman:"【一句话】when、if、as soon as、until、before、after引导的时间和条件状语从句里，用一般现在时表示将来——主句将来，从句现在。\n【展开】①表将来三种：will do、be going to do（有计划或有迹象）、be doing（位移类动词表将来）；②主将从现只管时间和条件状语从句，宾语从句不受这条限制：I don't know if he will come tomorrow.；③关键区分：if作「如果」引导条件从句要用现在时，if作「是否」引导宾语从句可以用将来时；④there will be或there is going to be，不能说there will have。\n【自查】If it ____ (rain) tomorrow, we will stay at home. 填什么？I don't know if he ____ (come) tomorrow. 又填什么？\n【易错】状语从句里写will；把宾语从句的if也套主将从现；as soon as后面用了将来时。\n【考法】2025·9 When David sees these postcards, he will remember his wonderful travel experiences（主将从现，从句用sees）、2026·12 John should stay in bed until he feels better（until从句用一般现在时）、2025·4 Take an umbrella, or you will get wet（祈使句+or+将来）。结论：主将从现连续两年出现在第9和第12题，是稳定送分点。",
   socratic:[
     { ask:"先看一般将来时的两种说法。`It ____ rain tomorrow.` 可以填什么？",
       opts:[
@@ -326,7 +326,7 @@ window.LESSONS.english = [
   goal:"被动语态是天津卷单选和短文填空的高频考点。这一课解决：什么时候用被动，各时态的被动怎么变。",
   key:"be + 过去分词；主语是「被动作的」就用被动；情态动词后面必须用 be，不能用 is/was。",
   recall:"「教室每天被打扫」怎么说？「作业必须今天完成」怎么说？",
-  feynman:"说清楚：你怎么判断一句话该用主动还是被动？",
+  feynman:"【一句话】被动语态是be+过去分词，主语是承受动作的那个；时态全部体现在be上，实义动词永远保持done不变。\n【展开】①各时态：一般现在am/is/are done；一般过去was/were done；一般将来will be done；含情态动词can/must/should be done；②主动变被动：把宾语提到句首作主语，原主语变成by短语（不重要时可省略）；③不及物动词没有被动语态：happen、take place、appear、come true不能说被发生；④固定搭配：be made of看得出原材料、be made from看不出、be made in产地、be made by制造者、be used to do被用来做。\n【自查】怎么判断一句话该用主动还是被动？The book ____ (write) by Lu Xun in 1921. 填什么？\n【易错】漏掉be动词；时态没体现在be上；把happen、take place误用成被动。\n【考法】被动语态连续三年必考一题，而且三年三种时态：2025·3 Chinese is spoken by more and more people（一般现在）、2026·13 A report on space travel will be given next Sunday（将来被动 will be done）、2024·30 Lao She was named the People's Artist（一般过去）。结论：把be的变化背死，这1分年年到手。",
   socratic:[
     { ask:"对比：`Tom cleans the room.` 和 `The room is cleaned by Tom.` 意思一样吗？",
       opts:[
@@ -405,7 +405,7 @@ window.LESSONS.english = [
   goal:"宾语从句是天津卷单选和书面表达的必考项，规则清晰、最容易拿分。这一课把三要素固定成检查清单。",
   key:"陈述句用 that，一般疑问用 if/whether，特殊疑问用原疑问词；从句必须用陈述语序；主句过去时则从句时态往回推。",
   recall:"I don't know where ____ ____ .（他在哪里）应该怎么填？为什么不能写 is he？",
-  feynman:"说清楚：宾语从句最容易错的是哪一点？你用什么办法检查？",
+  feynman:"【一句话】宾语从句抓三要素：连接词选对、语序必须是陈述语序、时态遵循主过从过（客观真理除外）。\n【展开】①连接词：陈述句用that（口语中可省）、一般疑问句用if或whether、特殊疑问句用原来的疑问词；②语序：不管原句是不是疑问句，从句一律用「主语+谓语」的陈述语序；③时态：主句是过去时，从句要用相应的过去时态；但从句表示客观真理时仍用一般现在时；④简化：ask sb. how to do sth.、tell sb. what to do。\n【自查】Do you know where he ____ (live)? 语序怎么排？He told me that light ____ (travel) faster than sound. 为什么不用过去时？\n【易错】从句用疑问语序（写成where does he live）；主句变过去时后从句忘记跟着变；whether or not的位置放错。\n【考法】宾语从句连续两年固定在第14题：2025·14 Could you tell me what you are reading?（不是 what are you reading）、2026·14 Daming, do you know why Grandpa loves city walks?（不是 why does Grandpa love）；2024·34 Could you tell me which museum Kevin likes best? 结论：三年三道题，全部只考一个点——陈述语序。",
   socratic:[
     { ask:"把两句合成一句：`I don't know.` + `Where is he?` 应该怎么写？",
       opts:[
@@ -489,7 +489,7 @@ window.LESSONS.english = [
   goal:"to do / doing 的选择是单选和短文填空的高频考点。这一课用「分类清单」代替死记硬背。",
   key:"介词后面一律加 doing；enjoy/finish/mind/practice 类动词后加 doing；want/hope/decide 类后加 to do。",
   recall:"I'm looking forward to ____ (see) you. 填什么？为什么不是 see？",
-  feynman:"说清楚：怎么判断一个动词后面该接 to do 还是 doing？",
+  feynman:"【一句话】接to do还是doing，看它前面那个词：want/hope/decide/plan/would like/agree后面接to do；enjoy/finish/mind/practice/keep/suggest/be good at/be busy后面接doing；make/let/have sb. do不带to。\n【展开】①意思有别的一组：stop to do（停下手里的事去做另一件）vs stop doing（停止正在做的事）；forget/remember to do（还没做）vs doing（已经做过）；try to do（努力去做）vs try doing（试着做做看）；②help sb. (to) do，to可有可无；③see/hear/watch sb. do强调看到全过程，doing强调看到正在进行；④句型：too...to do、adj. enough to do、It's + adj. + for/of sb. to do；⑤介词后面一律接doing：look forward to doing、be interested in doing、thanks for doing。\n【自查】stop to smoke和stop smoking差在哪？He made me ____ (laugh). 加不加to？被动句He was made ____ (work) 呢？\n【易错】被动语态里省掉的to忘记还原（be made to do）；把look forward to的to当成不定式符号；动名词与不定式混用。\n【考法】连续三年考 to do：2025·6 The government is developing new plans to protect ancient buildings（目的状语）、2026·8 The foreign tourists decided to visit Mei Lanfang Theatre（decide+to do）、2024·28 use different body language to show the same feelings。结论：目的状语和 decide／hope／plan 后接 to do 是固定考法。",
   socratic:[
     { ask:"先记一条最好用的规则。`He is good at ____ (sing).` 填什么？",
       opts:[
@@ -566,7 +566,7 @@ window.LESSONS.english = [
   goal:"比较等级是单选固定考点，规则明确。这一课解决：怎么变、什么时候用 more、修饰词怎么配。",
   key:"两者比用比较级 + than；三者以上用 the + 最高级；much/even/a lot 修饰比较级，不能用 very。",
   recall:"This book is ____ (interesting) than that one. 填什么？为什么不是 interestinger？",
-  feynman:"说清楚：什么时候加 er，什么时候用 more？",
+  feynman:"【一句话】单音节和部分双音节词加er/est，多音节词用more/most；比较级前面可以用much、a lot、even、far、a little修饰，但绝对不能用very。\n【展开】①变形：一般加er；以e结尾加r；辅音字母+y变y为i加er（happier）；重读闭音节双写末尾辅音字母（bigger、hotter、thinner）；②不规则：good/well-better-best，bad/badly/ill-worse-worst，many/much-more-most，little-less-least，far-farther/further；③句型：as+原级+as；not as/so+原级+as；the+比较级, the+比较级（越...越...）；比较级+than any other+单数名词；④三者及以上用最高级，最高级前加the，后面接in（范围）或of（同类）。\n【自查】什么时候加er，什么时候用more？「我们练得越多，做得就越好」怎么说？\n【易错】用very修饰比较级；写出more better这种双重比较级；最高级漏掉the；比较对象不对等（my book比yours才对，不能比you）。\n【考法】比较等级连续三年必考一题：2025·12 Lingling is one of the most helpful students in my class、2026·6 Our class won first place. We sang the best of all、2024·26 eating at home is healthier than eating in the restaurant。结论：2025和2026都转向最高级（one of the most+复数名词、the best of all），比较级反而退居其次。",
   socratic:[
     { ask:"`Tom is ____ (tall) than Jack.` 填什么？",
       opts:[
@@ -644,7 +644,7 @@ window.LESSONS.english = [
   goal:"定语从句是天津卷单选的固定考点。这一课解决：关系词怎么选，什么时候只能用 that。",
   key:"先行词是人用 who，是物用 which，that 通用；先行词有最高级/序数词/all/only 时只能用 that。",
   recall:"The boy ____ is running is my brother. 填什么？为什么？",
-  feynman:"说清楚：怎么找到定语从句修饰的是哪个词？",
+  feynman:"【一句话】先找先行词（从句紧跟着修饰的那个名词），指人用who/that、指物用which/that、表所属用whose；先行词在从句中作宾语时，关系词可以省略。\n【展开】①只能用that的情况：先行词是everything/anything/nothing/all/much/little/the only；先行词被最高级或序数词修饰；先行词既有人又有物；②where引导地点、when引导时间，且从句成分完整；③关系词已经在从句中充当成分，后面不能再重复出现代词（不能说the boy who he is my friend）；④从句谓语的单复数看先行词。\n【自查】怎么找到先行词？This is the best film that I have ever seen. 为什么必须用that？\n【易错】关系词后面又补了一个代词；指人指物弄混；把限制性定语从句前加逗号。\n【考法】近三年（2024·21-35、2025·1-15、2026·1-15）的单项填空里都没有独立的定语从句题——天津卷把它放进了阅读：2025·26-40 与 2026·26-40 阅读理解各30分、2025·51-55 与 2026·51-55 任务型阅读的长句中大量出现。结论：不必刷单选定从题，要练的是「在长句里一眼找到先行词」。",
   socratic:[
     { ask:"看这句：`The boy who is running is my brother.` 从句 `who is running` 在修饰哪个词？",
       opts:[
@@ -722,7 +722,7 @@ window.LESSONS.english = [
   goal:"情态动词是单选高频点，规则少但陷阱密集。这一课重点解决 mustn't 和 needn't 这类容易搞反的词。",
   key:"情态动词后一律接动词原形；mustn't = 禁止，needn't = 不必，两者意思相反。",
   recall:"「你不必去」和「你禁止去」分别怎么说？",
-  feynman:"说清楚：must 提问的否定回答为什么不能用 mustn't？",
+  feynman:"【一句话】Must I...? 的否定回答要用needn't或don't have to（不必），不能用mustn't（禁止）——must和mustn't不是一对反义词。\n【展开】①can表能力或许可、may表许可或推测、should表建议、have to是客观上不得不、must是主观上必须；②推测语气由强到弱：must（一定）＞may/might（可能）＞can't（不可能）；③情态动词后面接动词原形，被动形式是can/must be done；④反义疑问句「前肯后否、前否后肯」，主语要换成代词；含never、hardly、few、little、nothing的句子视为否定句；I think引导时否定要转移，看从句作附加问句；⑤祈使句的附加问句用will you，Let's开头用shall we，Let us用will you。\n【自查】—Must I finish it now? —No, you ____. 填什么？He is never late, ____? 补全附加问句。\n【易错】must的否定回答用mustn't；附加问句主语没换成代词；把含never的句子当肯定句处理。\n【考法】连续两年考同一对反义词：2025·8 You needn't tell Jim the good news because I've told him already（needn't＝不必）、2026·9 You mustn't use the lift when there is a fire（mustn't＝禁止）。结论：needn't 和 mustn't 一年一个轮着考，2027大概率还在第8-9题。",
   socratic:[
     { ask:"基础规则。`He can ____ (swim).` 填什么？",
       opts:[
@@ -800,7 +800,7 @@ window.LESSONS.english = [
   goal:"阅读理解占天津卷英语的大头。基础薄弱时不要求全文读懂，这一课教「不全懂也能拿分」的定位法。",
   key:"先读题目再读文章；细节题回原文找关键词定位；主旨题看首段末段和每段首句。",
   recall:"做阅读理解时，你是先读文章还是先读题目？为什么？",
-  feynman:"说清楚：遇到看不懂的单词，你有哪几种办法猜出意思？",
+  feynman:"【一句话】阅读不是先把全文读懂再做题，而是先看题干抓关键词，回原文定位，再逐一比对选项——原文里能找到依据才能选。\n【展开】①题目顺序基本与段落顺序一致，定位后要连读上下一句；②细节题：用人名、数字、地点、专有名词定位，正确选项往往是原句的同义替换；③主旨题：看首段、末段和每段第一句；④推断题不能过度推理，选「文中能推出来的」而不是「我觉得合理的」；⑤猜词：看上下文举例、看but/however的转折、看破折号和同位语解释；⑥排除法：含always、never、all、only、must等绝对化词的选项多半是干扰项。\n【自查】遇到生词你有哪几种猜法？定位到某一句后，为什么还要往前后各读一句？\n【易错】凭印象和常识选而不回原文；被「部分正确」的选项骗；前面磨太久导致最后两篇没时间。\n【考法】重要：2025年起天津英语中考笔试独立成卷，题号全部重排——单项填空1-15、完形填空16-25、阅读理解26-40（30分）、补全对话41-45、完成句子46-50、任务型阅读51-55、综合填空56-65、书面表达66；2024年的21-35、86已作废，别再按老题号练。阅读题材：2025·26-40 A篇是Mario买鞋（记叙文）、2026·26-40 A篇是种草莓（步骤类应用文）。新题型必须专门练：完成句子（2026·46 cheer; on、47 one of、48 by hand、49 went over、50 lift up）和任务型阅读（2025·51 playing football、52 the rules、53 the space、54 make friends、55 were made of）。",
   socratic:[
     { ask:"做阅读理解，你觉得应该先读文章还是先读题目？",
       opts:[
@@ -897,7 +897,7 @@ window.LESSONS.english = [
   goal:"书面表达是英语最容易靠模板提分的部分。基础薄弱时不追求文采，只求「结构完整、句子不错」。",
   key:"三段式：开头点题 + 中间三点 + 结尾总结；宁可用简单句写对，不用复杂句写错。",
   recall:"写作文时，是用你会的简单句，还是冒险用复杂句？为什么？",
-  feynman:"说清楚：一篇中考英语作文，你会按什么结构来写？",
+  feynman:"【一句话】作文按三段式套：开头点题1到2句→中间分点展开3到4句（用First / Besides / What's more串起来）→结尾升华1到2句；先保证没有语法错，再谈亮点句。\n【展开】①动笔前审三样：人称（是I还是we还是he）、时态（记叙用过去、说明建议用现在）、要点是否全部覆盖，漏一个要点直接掉档；②加分句式：I think it's important for us to...；Not only... but also...；The more we practice, the better we will be.；There is no doubt that...；③连接词：First of all、Besides、What's more、However、In a word；④写完必查五项：三单、时态一致、名词单复数、冠词、拼写；⑤字数达标、卷面整洁、少涂改。\n【自查】你的作文分哪三段，每段写几句？写完必须检查的五项是什么？\n【易错】要点漏写；通篇都是简单句；中式英语直译；前一句现在时后一句过去时。\n【考法】书面表达固定在第66题、15分、80-100词：2026·66 给英国笔友Kevin回邮件，介绍天津之眼（was completed in 2008；takes you 120 metres above the Haihe River）和黄崖关长城（has a history of over 1,400 years）＋天津的休闲活动＋你的想法；2025·66 以 A Special Experience of Li Hua 为题为校报写短文，写李华在天津科学技术馆当小讲解员（Last summer holiday 开头，全篇过去时）；2024·86 给笔友Peter写邮件讲王红帮盲人过马路。结论：三年两次「李华写邮件」，2026转向介绍天津本地景观与文化，这是明年最该提前背熟的模板。",
   socratic:[
     { ask:"写作文时，你有一个想表达的意思，但不确定复杂句型对不对。你怎么办？",
       opts:[
@@ -979,6 +979,223 @@ window.LESSONS.english = [
       trap:"字数不用数得很准，差几个词不影响；卷面整洁重要但已经写完改不了。\n**优先改那些「改一处就少扣一处」的语法错误**。",
       deep:"中考英语作文万能框架（背下来，任何题目都能套）：\n\n**开头（1-2句）**\n With the development of ..., ... has become more and more important.\n 或 Recently, we have had a discussion about ...\n\n**主体（3-4句）**\n First, ... （第一个要点）\n Second, ... （第二个要点）\n Besides, ... （第三个要点）\n\n**结尾（1-2句）**\n In my opinion, ... （表达看法）\n All in all, ... （总结）\n\n用法：把题目给的要点填进 First/Second/Besides 后面，开头结尾照抄。\n**这个框架本身就值好几分的结构分**，而且完全不需要临场发挥。"
     }
+  ]
+},
+
+/* ---------------------------------------------------------- */
+{
+  id:"e13", point:"补全对话", title:"41-45题：7选5，只看空的前后两句",
+  goal:"2025年天津英语中考改版后新增的题型，固定在第41-45题、5分。2024年及以前的卷子没有它，练旧卷练不到，必须单独补。",
+  key:"不用读懂全文，只看空的前一句和后一句：空后有问号就填答语，空后是Yes/No就填一般疑问句。",
+  recall:"补全对话先看哪里？空后是「Sure, I'd love to.」，这一空该填什么？",
+  feynman:"【一句话】补全对话不是读懂全文，是看「空的前一句和后一句」——空后是答语就填问句，空后出现Yes或No就填一般疑问句。\n【展开】①先通读一遍知道两个人在聊什么；②看空后有没有问号：空后是问句，空里多半是陈述或答语；③看答语类型倒推问句：答Yes, I do就问Do you…；答具体时间就问When；答原因就问Why；答一段时长就问How long；④人称和时态要跟上下文对齐，别把I和you弄反；⑤通常7个选项选5个，先填最有把握的，剩下的靠排除；⑥填完把整段对话从头读一遍，读着别扭就换。\n【自查】空后是「Sure, I'd love to.」，这一空该填什么句式？空后是「It takes about 20 minutes.」呢？\n【易错】只看空前不看空后；忽略问号这个最强提示；人称张冠李戴；最后两个选项凭感觉乱填而不回读检验。\n【考法】2025年起新增，固定在第41-45题、每小题1分共5分（2025年答案 41.F 42.G 43.E 44.A 45.D；2026年答案 41.E 42.B 43.F 44.D 45.G）。2024年及以前的天津卷没有这个大题，用旧卷复习会整块漏掉。结论：题型新但套路很死，专门练十套就能稳拿这5分。",
+  socratic:[
+    { ask:"先建立习惯。做补全对话，你应该最先看哪里？",
+      opts:[
+        {t:"空的后一句", ok:true,
+         back:"对。后一句几乎总是最强的线索——它要么是对这一空的回答，要么是承接这一空的内容，能直接锁定句式。"},
+        {t:"从头到尾把对话读懂再说", ok:false,
+         back:"时间不够，而且没必要。补全对话考的是「上下句衔接」，不是通篇理解。先看空后一句，再看空前一句，八成的题这样就能定。"}
+      ],
+      close:"**顺序是：空后一句 → 空前一句 → 才是整体话题。后一句里的问号、Yes/No、具体信息，都是在告诉你这一空该填什么。**",
+      rescue:"记成「**先看后，再看前**」。补全对话是接话，不是读文章。"
+    },
+    { ask:"空的后面是「Yes, I do. I go there every summer.」，这一空最可能填什么？",
+      opts:[
+        {t:"一个以Do开头的一般疑问句", ok:true,
+         back:"对。答语是Yes, I do，就说明问句用的助动词是do，而且主语是you。比如 Do you like travelling? 这种一一对应是白送的分。"},
+        {t:"一个以What开头的特殊疑问句", ok:false,
+         back:"特殊疑问句不能用Yes/No回答。答语既然是Yes, I do，问句就必须是Do you…开头的一般疑问句。答语用什么助动词，问句就用什么。"}
+      ],
+      close:"**答语反推问句是最稳的一招：答Yes, I do → 问Do you…；答Yes, I am → 问Are you…；答具体时间 → 问When；答原因 → 问Why；答时长 → 问How long。**",
+      rescue:"把答语的**第一个词**圈出来：Yes/No开头就找一般疑问句；不是Yes/No，就按信息类型找特殊疑问词。"
+    },
+    { ask:"七个选项只需要填五个，剩下两个是干扰项。最后两空拿不准时，怎么办最稳？",
+      opts:[
+        {t:"把已填的空连起来通读一遍，看哪个选项接得顺", ok:true,
+         back:"对。补全对话的正确答案一定能让整段话读起来自然连贯。回读一遍，语感会直接把不通顺的那个筛掉。"},
+        {t:"随便挑一个，反正只有1分", ok:false,
+         back:"这5分是全卷最好拿的分之一，而且回读只要二十秒。放弃太可惜。先把确定的填完，剩下的靠通读检验。"}
+      ],
+      close:"**做题顺序：先填最确定的两三空 → 划掉已用选项 → 把对话通读一遍 → 用语感定剩下的。千万别按41到45的顺序硬填。**",
+      rescue:"这题型的评分是**一空一分、互不牵连**，所以先抓有把握的，能拿几分是几分。"
+    }
+  ],
+  quiz:[
+    {id:"e13q1", src:"2025天津·题型同源", pt:"补全对话", lv:"基础", flash:true,
+     type:"choice", stem:"— ______\n— Yes, I do. I usually read books on weekends.",
+     options:["A. What do you do on weekends?","B. Do you like reading?","C. When do you read books?","D. How often do you read?"],
+     answer:"B",
+     explain:"答语是 Yes, I do，说明问句必须是以助动词do开头、主语为you的一般疑问句。A、C、D都是特殊疑问句，不能用Yes/No回答。",
+     trap:"答语开头是Yes/No，问句就一定是一般疑问句。答语用什么助动词，问句就用什么。"},
+    {id:"e13q2", src:"2026天津·题型同源", pt:"补全对话", lv:"基础", flash:true,
+     type:"choice", stem:"— How long does it take you to get to school?\n— ______",
+     options:["A. It's about two kilometres.","B. I go to school by bike.","C. About twenty minutes.","D. At seven in the morning."],
+     answer:"C",
+     explain:"How long 问的是时长，答案要给一段时间。A答的是距离（How far），B答的是方式（How），D答的是时间点（When）。",
+     trap:"把疑问词和答语类型配成对：How long→时长，How far→距离，How often→频率，When→时间点，How→方式。"},
+    {id:"e13q3", src:"2025天津·题型同源", pt:"补全对话", lv:"中档",
+     type:"choice", stem:"— Would you like to come to my birthday party this Saturday?\n— ______ What time shall we meet?",
+     options:["A. Sure, I'd love to.","B. Sorry, I'm busy.","C. No, I don't like it.","D. That's all right."],
+     answer:"A",
+     explain:"关键在空后那句 What time shall we meet?——既然还在商量见面时间，说明前面是答应了邀请。B、C都是拒绝，接不上后文。",
+     trap:"这题的答案不在空前，而在空后。空后继续讨论细节，就说明这一空是肯定回答。"},
+    {id:"e13q4", src:"高频考点", pt:"补全对话", lv:"中档",
+     type:"choice", stem:"— I'm going to Beijing next week.\n— ______\n— I'll stay there for a week.",
+     options:["A. Where will you go?","B. How long will you stay there?","C. Who will go with you?","D. Why are you going there?"],
+     answer:"B",
+     explain:"空后的答语是 for a week，回答的是时长，因此问句必须是 How long。这是典型的「用下一句答语反推本空问句」。",
+     trap:"空在中间时，上下两句都要看：上句给话题，下句给答案类型。"},
+    {id:"e13q5", src:"高频考点", pt:"补全对话", lv:"基础",
+     type:"fill", stem:"填空：做补全对话，最应该先看的是空的________一句；如果空后的答语以Yes或No开头，这一空就要填________句。",
+     answer:["后 一般疑问"],
+     explain:"补全对话的核心方法：先看空后一句判断句式，再看空前一句确认话题。答语以Yes/No开头，对应的一定是一般疑问句。",
+     trap:"顺序错了就会白读很多遍。永远是「先看后，再看前」。"}
+  ]
+},
+
+/* ---------------------------------------------------------- */
+{
+  id:"e14", point:"完成句子", title:"46-50题：10分，其实是短语默写",
+  goal:"2025年新增，固定在第46-50题、每小题2分共10分，是全卷性价比最高的新题型。两年10个短语已经暴露了出题范围。",
+  key:"根据中文提示补全句子，每条横线只填一个单词，考的全是课本里的固定搭配，形式（时态、单复数）错了要扣分。",
+  recall:"「为运动员加油」两条横线填什么？「手工制作」呢？",
+  feynman:"【一句话】完成句子＝短语默写：每条横线只能填一个词，答案几乎都是课本里的固定搭配，而且形式（时态、单复数）错了照样扣分。\n【展开】①先看中文提示，确定该用哪个短语；②数横线有几条，决定短语要拆成几个词填；③看句子的主语和时态，决定动词用原形、三单还是过去式；④近两年真题原题短语：cheer…on 为…加油、one of …之一、by hand 手工、go over 复习或检查、lift up 举起、have dinner 吃晚饭、first aid 急救、go out 熄灭或外出、take photos 拍照、all over 遍及；⑤评分说明写着「与所给答案不一致，但合乎句意且单词拼写正确可计满分」，所以拿不准时宁可写一个有把握的同义短语，绝不空着。\n【自查】「为运动员加油」两条横线各填什么？「复习功课」如果句子是过去时，该写go over还是went over？\n【易错】一条横线塞两个词；短语选对了但时态没跟着变（该写went over却写go over）；名词单复数没跟上。\n【考法】2025年起新增，固定在第46-50题、10分。2025年答案：46. have dinner、47. first aid、48. goes out、49. take photos、50. all over；2026年答案：46. cheer; on（分开填在两条横线上）、47. one of、48. by hand、49. went over（用了过去式）、50. lift up。结论：两年10个短语已经把范围划出来了，把课本词组表按「动词＋介词」过一遍，这10分最容易补回来。",
+  socratic:[
+    { ask:"2026年第46题的答案是 cheer; on，中间用分号隔开。这说明什么？",
+      opts:[
+        {t:"这个短语被拆开填在两条横线上，中间隔着别的词", ok:true,
+         back:"对。cheer sb. on 这个短语的宾语要放在中间，所以句子写成 cheer him on，cheer和on分别填在两条横线里。答案里的分号就是在提示「分开填」。"},
+        {t:"两条横线可以任选一条填cheer", ok:false,
+         back:"不行，位置是固定的。cheer…on 属于「可分短语」，代词宾语必须放中间。看到答案用分号写，就说明这个短语被拆开了。"}
+      ],
+      close:"**可分短语（cheer sb. on、lift it up、put it on）遇到代词宾语必须放中间。看到题目给了两条不相邻的横线，先想想是不是这类短语。**",
+      rescue:"常见可分短语：**cheer sb. on / pick sth. up / put sth. on / turn it off**。代词宾语一律夹在中间。"
+    },
+    { ask:"2026年第49题的答案是 went over 而不是 go over。为什么要用过去式？",
+      opts:[
+        {t:"因为整句话是过去时，动词必须跟着变形", ok:true,
+         back:"对。评分标准写明「如果形式错误可酌情计分」——短语选对但形式错了，分数是会打折的。填空前必须先看句子的时态。"},
+        {t:"go over 和 went over 都算对", ok:false,
+         back:"不一定。评分说明特别提到形式错误要酌情计分，意思就是形式不对会扣分。填之前先扫一眼句子里其他动词是什么时态。"}
+      ],
+      close:"**完成句子的两步：第一步选对短语，第二步改对形式。看主语定三单，看时间状语和其他动词定时态。很多人只做了第一步，丢的就是第二步的分。**",
+      rescue:"填完每一空，回头问自己一句：**这个动词要不要加s？要不要变过去式？** 十秒钟换回好几分。"
+    },
+    { ask:"某一空你想不起标准答案，但能想到一个意思差不多的短语。填还是空着？",
+      opts:[
+        {t:"填，评分标准允许合乎句意且拼写正确的答案", ok:true,
+         back:"对。天津卷的评分说明白纸黑字写着：与所给答案不一致，但合乎句意且单词拼写正确，可计满分。空着必然0分，写了就有机会。"},
+        {t:"空着，写错了反而扣分", ok:false,
+         back:"完成句子不倒扣分。评分说明还明确允许同义表达得满分。空着是确定的0分，写上去至少有希望。"}
+      ],
+      close:"**评分原文：与所给答案不一致，但合乎句意且单词拼写正确可计满分。所以这道题绝不留空——想到什么合理的就写什么，拼写一定要对。**",
+      rescue:"拿不准时，选一个你**百分百会拼**的同义词。拼写错了才是真的不得分。"
+    }
+  ],
+  quiz:[
+    {id:"e14q1", src:"2026天津·真题原题", pt:"完成句子", lv:"基础", flash:true,
+     type:"fill", stem:"根据中文意思完成句子，每空一词：\n同学们都在为他加油。\nAll the students are ______ him ______ .",
+     answer:["cheer on","cheering on"],
+     explain:"cheer sb. on＝为某人加油，是可分短语，代词宾语him必须放在cheer和on中间。句子用的是现在进行时 are…，所以填cheering。",
+     trap:"可分短语遇到代词宾语一律夹在中间；同时别忘了按are判断要用cheering。"},
+    {id:"e14q2", src:"2026天津·真题原题", pt:"完成句子", lv:"基础", flash:true,
+     type:"fill", stem:"根据中文意思完成句子，每空一词：\n这些风筝是手工制作的。\nThese kites are made ______ ______ .",
+     answer:["by hand"],
+     explain:"by hand＝用手工、手工地。注意区分：be made of（看得出原料）、be made from（看不出原料）、be made in（产地）、be made by（制作者）、be made by hand（手工制作）。",
+     trap:"这一组by/of/from/in的搭配是高频考点，要成组记，别只记一个。"},
+    {id:"e14q3", src:"2026天津·真题原题", pt:"完成句子", lv:"中档",
+     type:"fill", stem:"根据中文意思完成句子，每空一词：\n昨晚我复习了功课。\nI ______ ______ my lessons last night.",
+     answer:["went over"],
+     explain:"go over＝复习、检查。句末有 last night，整句是一般过去时，所以go要变成过去式went。",
+     trap:"2026年这道题的标准答案正是went over。短语对了但没变过去式，形式错误要酌情扣分。"},
+    {id:"e14q4", src:"2025天津·真题原题", pt:"完成句子", lv:"中档",
+     type:"fill", stem:"根据中文意思完成句子，每空一词：\n他一离开房间，灯就熄灭了。\nThe light ______ ______ as soon as he left the room.",
+     answer:["went out"],
+     explain:"go out 在这里是「（灯、火）熄灭」的意思。主句和从句都是过去发生的事，left是过去式，所以go也要用过去式went。（2025年原题考的是goes out，那句是一般现在时。）",
+     trap:"go out 有两个常考义项：外出、熄灭。判断用哪个看主语——主语是人就是外出，是灯火就是熄灭。"},
+    {id:"e14q5", src:"2025天津·真题原题", pt:"完成句子", lv:"基础",
+     type:"fill", stem:"根据中文意思完成句子，每空一词：\n汉语正在被全世界的人们学习。\nChinese is being learned by people ______ ______ the world.",
+     answer:["all over"],
+     explain:"all over the world＝全世界，是固定搭配。2025年第50题的标准答案就是all over。",
+     trap:"这类地点类固定短语（all over the world、around the world）直接背下来，属于纯记忆分。"},
+    {id:"e14q6", src:"2025天津·真题原题", pt:"完成句子", lv:"基础",
+     type:"fill", stem:"根据中文意思完成句子，每空一词：\n他是我们班最高的学生之一。\nHe is ______ ______ the tallest students in our class.",
+     answer:["one of"],
+     explain:"one of + the + 最高级 + 复数名词＝最…的…之一。注意students必须用复数，这是同一句里的第二个得分点。",
+     trap:"one of 后面的名词永远是复数。这个结构在书面表达里也是加分句式，要会写。"}
+  ]
+},
+
+/* ---------------------------------------------------------- */
+{
+  id:"e15", point:"任务型阅读", title:"51-55题：答案基本在原文，但要改形式",
+  goal:"2025年新增，固定在第51-55题、每小题1分共5分。第55题是开放题，答案不唯一，只要与语篇主题相关就给分——必写必得分。",
+  key:"读一篇短文后补全表格或笔记，答案大多能在原文找到，但要按表格栏目的语法要求改写形式。",
+  recall:"表格栏目是「What they did」，原文写的是 they played football，你该填什么？",
+  feynman:"【一句话】任务型阅读＝原文找词＋改写形式：答案大多藏在原文里，但要按表格那一栏的语法要求把形式改对。\n【展开】①先看表格或笔记的标题和各栏目名，知道要找哪几类信息；②带着栏目关键词回原文定位，通常按段落顺序一一对应；③注意所填内容在句中的语法角色：动词要不要加ing、名词要不要复数、be动词要不要变；④这道题的空不限一词（和完成句子不同），要求是「所填内容符合上下文，无语法和拼写错误」；⑤最后一小题常是开放题，评分写明「答案不唯一，与语篇主题相关的正确答案即可计分」，一定要写，绝不留空。\n【自查】表格栏目写着「What they did」，原文是 they played football，你填什么形式？如果栏目是「Activity」呢？\n【易错】直接照抄原文不改形式；开放题空着不写（白丢1分）；拼写错误导致整空不得分。\n【考法】2025年起新增，固定在第51-55题、5分。2025年答案：51. playing football、52. the rules、53. the space、54. make friends、55. were made of；2026年答案：51. full of、52. tea cup、53. waving to、54. ancient life、55. 略（答案不唯一，与语篇主题相关即可计分）。结论：第55题是开放题、必写必得分；前四题练的就是「定位＋改形式」两步。",
+  socratic:[
+    { ask:"注意2025年第51题的答案是 playing football，而不是 played football。为什么？",
+      opts:[
+        {t:"因为表格那一栏的句子结构要求用动名词形式", ok:true,
+         back:"对。原文可能写的是 they played football，但填进表格时要看这一栏的句式——比如 enjoy ___ 或 be good at ___ 后面必须接doing。这就是「改形式」。"},
+        {t:"因为原文里就写的是playing", ok:false,
+         back:"不一定。任务型阅读最容易丢分的地方，正是照抄原文不看空所在句子的结构。填之前一定要把整句读一遍，看空前是介词、还是enjoy这类要接doing的词。"}
+      ],
+      close:"**任务型阅读两步走：第一步在原文定位内容，第二步看空所在的句子结构改形式。只做第一步就照抄，是最常见的丢分方式。**",
+      rescue:"填完每一空，把**整句连着读一遍**。读起来语法别扭，就是形式没改对。"
+    },
+    { ask:"2026年第55题的评分说明写着「答案不唯一，与语篇主题相关的正确答案即可计分」。遇到这种题怎么办？",
+      opts:[
+        {t:"一定要写，围绕文章主题写一句语法正确的话", ok:true,
+         back:"对。开放题是白送分——只要和主题相关、语法拼写没错就给分。空着是确定的0分，写了几乎都能拿到。"},
+        {t:"想不出标准答案就空着", ok:false,
+         back:"开放题根本没有标准答案。评分写得很清楚：与语篇主题相关的正确答案即可计分。空着等于主动放弃1分。"}
+      ],
+      close:"**第55题是固定的开放题位。写作策略：用文章里出现过的词，造一个你有把握的简单句。宁可简单也别出语法错误。**",
+      rescue:"开放题的保底写法：**把文章主题用一句最简单的话复述一遍**。简单句不容易错，错不了就有分。"
+    },
+    { ask:"做任务型阅读时，应该先读文章还是先看表格？",
+      opts:[
+        {t:"先看表格的标题和栏目，再带着问题读文章", ok:true,
+         back:"对。表格的栏目名就是检索关键词，先看一眼你就知道要在文章里找什么，读的时候有的放矢，速度会快很多。"},
+        {t:"先把文章从头到尾精读一遍", ok:false,
+         back:"时间成本太高。表格栏目通常按文章段落顺序排列，先看栏目、再顺着段落找，效率高得多。"}
+      ],
+      close:"**顺序：表格标题和栏目 → 带着关键词扫读原文 → 逐空定位 → 改形式 → 回读检查。和阅读理解一样，先看题再读文。**",
+      rescue:"把表格栏目名当成**搜索关键词**。它们通常和原文用词高度重合，定位很快。"
+    }
+  ],
+  quiz:[
+    {id:"e15q1", src:"2025天津·真题原题", pt:"任务型阅读", lv:"基础", flash:true,
+     type:"choice", stem:"表格中某一栏的句子是：The children enjoyed ______ in the park.（原文：The children played football in the park every afternoon.）这一空应填",
+     options:["A. played football","B. playing football","C. play football","D. to playing football"],
+     answer:"B",
+     explain:"enjoy 后面必须接动名词doing，所以要把原文的 played 改成 playing。2025年第51题的标准答案正是 playing football。",
+     trap:"照抄原文的played就错了。任务型阅读第二步永远是「按空所在的句子结构改形式」。"},
+    {id:"e15q2", src:"2026天津·真题原题", pt:"任务型阅读", lv:"基础", flash:true,
+     type:"choice", stem:"表格中某一栏的句子是：The room was ______ old photos.（意思是「房间里摆满了老照片」）这一空应填",
+     options:["A. full of","B. fill of","C. full with","D. filled of"],
+     answer:"A",
+     explain:"be full of＝充满、装满，是固定搭配。be filled with 也是同义表达，但这里空前已有was，且答案要求是 full of。",
+     trap:"be full of 和 be filled with 是一对同义结构，介词不能互换：full 配 of，filled 配 with。"},
+    {id:"e15q3", src:"高频考点", pt:"任务型阅读", lv:"中档",
+     type:"choice", stem:"关于任务型阅读第55题（开放题），下列做法正确的是",
+     options:["A. 想不出标准答案就空着","B. 围绕语篇主题写一句语法正确的话","C. 照抄文章第一句","D. 写中文说明"],
+     answer:"B",
+     explain:"评分说明写明「第55小题答案不唯一，与语篇主题相关的正确答案，即可计分」。所以只要围绕主题、语法拼写正确就能得分，绝不能空着。",
+     trap:"开放题没有标准答案，空着是确定的0分。用简单句写，简单才不容易错。"},
+    {id:"e15q4", src:"高频考点", pt:"任务型阅读", lv:"基础",
+     type:"choice", stem:"做任务型阅读的正确顺序是",
+     options:["A. 精读全文→做题","B. 看表格栏目→带着关键词扫读原文→逐空定位改形式→回读检查","C. 直接从原文抄句子填空","D. 先做第55题再做前面"],
+     answer:"B",
+     explain:"表格栏目就是检索关键词，先看栏目能大幅提高定位效率；找到内容后还必须按空所在句子的结构改形式；最后回读检查语法和拼写。",
+     trap:"直接抄原文是最常见的失分方式——原文的形式往往和空里需要的形式不一样。"},
+    {id:"e15q5", src:"高频考点", pt:"任务型阅读", lv:"中档",
+     type:"fill", stem:"填空：任务型阅读的答案大多能在________中找到，但必须按空所在句子的结构改对________；第55题是________题，答案不唯一，一定不能空着。",
+     answer:["原文 形式 开放"],
+     explain:"任务型阅读＝定位＋改形式。前四小题答案基本在原文，第55题是固定的开放题位，只要与语篇主题相关且语法拼写正确即可得分。",
+     trap:"这5分里，前4分靠方法，第5分靠「敢写」。两样都别丢。"}
   ]
 }
 

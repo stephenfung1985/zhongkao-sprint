@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数学费曼复盘手册 · 天津中考数学（2027版）</title>
+<style>
+  :root{
+    --ink:#1A1B1C; --sub:#5A6270; --line:#E4E3DD; --bg:#FFFFFF; --soft:#F6F5F1;
+    --accent:#4E7CC2; --accent-soft:#EAF0F9; --hot:#C25E4C; --hot-soft:#FBEce8;
+    --mid:#C98A2B; --mid-soft:#FBF3E3; --ok:#3E7C5A; --ok-soft:#E9F4EE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;
+       font-size:15px;line-height:1.7;}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 20px 80px;}
+  /* ---------- 头部 ---------- */
+  .hero{border:1px solid var(--line);border-radius:16px;padding:28px 28px 22px;
+        background:linear-gradient(160deg,#F3F7FD 0%,#FFFFFF 70%);}
+  .hero .tag{display:inline-block;font-size:12px;color:var(--accent);
+             background:var(--accent-soft);border-radius:20px;padding:2px 12px;margin-bottom:10px;}
+  .hero h1{margin:0 0 6px;font-size:28px;letter-spacing:1px;}
+  .hero .sub{color:var(--sub);font-size:14px;margin:0 0 16px;}
+  .stats{display:flex;flex-wrap:wrap;gap:12px;}
+  .stat{flex:1 1 130px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff;}
+  .stat b{display:block;font-size:22px;color:var(--accent);}
+  .stat span{font-size:12px;color:var(--sub);}
+  /* ---------- 导航 ---------- */
+  nav.toc{border:1px solid var(--line);border-radius:14px;padding:16px 22px;margin:22px 0;
+          background:var(--soft);font-size:14px;}
+  nav.toc a{color:var(--accent);text-decoration:none;margin-right:16px;white-space:nowrap;}
+  nav.toc a:hover{text-decoration:underline;}
+  /* ---------- 章节 ---------- */
+  h2.sec{font-size:22px;margin:44px 0 6px;padding-bottom:8px;border-bottom:3px solid var(--accent);}
+  h3{font-size:17px;margin:26px 0 8px;color:var(--accent);}
+  p.lead{color:var(--sub);font-size:14px;margin-top:2px;}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:var(--accent-soft);color:var(--ink);font-weight:600;}
+  tr:nth-child(even) td{background:#FAFAF7;}
+  .tip{background:var(--hot-soft);border-left:4px solid var(--hot);padding:10px 14px;border-radius:0 10px 10px 0;
+       font-size:14px;margin:14px 0;}
+  .note{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;
+        font-size:13px;color:var(--sub);margin:14px 0;}
+  /* ---------- 热度条 ---------- */
+  .hotbar{display:inline-block;width:86px;height:10px;background:#EFEDE7;border-radius:6px;vertical-align:middle;margin-right:8px;overflow:hidden;}
+  .hotbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#E8B7A8,#C25E4C);}
+  .lv{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin-left:6px;}
+  .lv-must{background:var(--hot-soft);color:var(--hot);}
+  .lv-high{background:var(--mid-soft);color:var(--mid);}
+  .lv-mid{background:var(--accent-soft);color:var(--accent);}
+  /* ---------- 考点卡 ---------- */
+  .card{border:1px solid var(--line);border-radius:14px;padding:14px 18px 12px;margin:14px 0;
+        page-break-inside:avoid;break-inside:avoid;}
+  .card .ch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;}
+  .card .ch .no{font-weight:700;color:var(--accent);background:var(--accent-soft);
+                border-radius:8px;padding:2px 10px;font-size:14px;}
+  .card .ch .nm{font-weight:700;font-size:16px;}
+  .card .row{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:12.5px;color:var(--sub);margin-bottom:8px;}
+  .card .part{font-size:14px;margin:6px 0;}
+  .card .part b{color:var(--accent);font-size:13px;}
+  .card .ask{background:var(--soft);border-radius:10px;padding:8px 12px;font-size:13.5px;margin:6px 0;}
+  .card .trap{background:var(--hot-soft);border-radius:10px;padding:8px 12px;font-size:13.5px;margin:6px 0;}
+  .card .src{font-size:12.5px;color:var(--sub);margin-top:6px;border-top:1px dashed var(--line);padding-top:6px;}
+  .grp{display:flex;align-items:center;gap:10px;margin:30px 0 4px;}
+  .grp .bar{flex:1;height:1px;background:var(--line);}
+  .grp b{font-size:16px;color:var(--ink);white-space:nowrap;}
+  /* ---------- 弱项表 ---------- */
+  .wk{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin:2px 2px;background:var(--hot-soft);color:var(--hot);}
+  .kmap td b{color:var(--accent);}
+  /* ---------- 打印 ---------- */
+  @media print{
+    body{font-size:12.5px;}
+    .wrap{max-width:none;padding:10px;}
+    h2.sec{page-break-after:avoid;}
+    .card{page-break-inside:avoid;}
+    nav.toc{display:none;}
+    .hero h1{font-size:22px;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:14px 10px 60px;}
+    .hero{padding:18px 14px;}
+    th,td{font-size:12px;padding:5px 6px;}
+    .card{padding:12px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">天津中考 · 数学篇 · 2027 版</span>
+  <h1>数学费曼复盘手册</h1>
+  <p class="sub">按历年考试热点整理 · 预判 2027 考点 · 每天 3 分钟费曼复盘脚本 —— 给小鱼（冯子妤）</p>
+  <div class="stats">
+    <div class="stat"><b>120</b><span>满分（分）</span></div>
+    <div class="stat"><b>100</b><span>考试时间（分钟）</span></div>
+    <div class="stat"><b>25</b><span>总题数</span></div>
+    <div class="stat"><b>36+18+66</b><span>选择+填空+解答</span></div>
+    <div class="stat"><b>≥103</b><span>稳定得分目标（抢分手册口径）</span></div>
+  </div>
+</div>
+
+<nav class="toc">
+  <a href="#s1">① 天津卷全景</a>
+  <a href="#s2">② 历年考点分布</a>
+  <a href="#s3">③ 2027 考点预判</a>
+  <a href="#s4">④ 3分钟费曼复盘脚本（25题）</a>
+  <a href="#s5">⑤ 小鱼错题→考点映射</a>
+  <a href="#s6">⑥ 每天3分钟怎么用</a>
+</nav>
+
+<!-- ================= 第一章 ================= -->
+<h2 class="sec" id="s1">第一章　天津卷全景：先看清这张卷子长什么样</h2>
+<p class="lead">天津中考数学满分 120 分、考试 100 分钟、共 25 题，结构近 5 年完全稳定。摸清结构，就知道每道题该花多少时间、该拿多少分。</p>
+
+<h3>1.1 试卷结构与分值</h3>
+<table>
+  <tr><th>板块</th><th>题号</th><th>分值</th><th>内容特点</th><th>建议用时</th><th>抢分目标</th></tr>
+  <tr><td><b>选择题</b></td><td>1–12</td><td>每题3分，共36分</td><td>前9题基础送分，后3题中档/压轴</td><td>15–20分钟</td><td>≥33分</td></tr>
+  <tr><td><b>填空题</b></td><td>13–18</td><td>每题3分，共18分</td><td>代数变形+几何直观，17/18题偏难</td><td>10–15分钟</td><td>≥15分</td></tr>
+  <tr><td><b>解答题</b></td><td>19–25</td><td>8+8+10+10+10+10+10=66分</td><td>19基础→25压轴，梯度递进</td><td>80–90分钟</td><td>≥55分</td></tr>
+</table>
+
+<h3>1.2 难度分层（基础 : 中档 : 难题 ≈ 6 : 2.5 : 1.5）</h3>
+<table>
+  <tr><th>层级</th><th>题号</th><th>说明</th><th>小鱼现在的位置</th></tr>
+  <tr><td><b>基础（约72分）</b></td><td>选择1–9、填空13–16、解答19–20</td><td>会算+不粗心就能拿满，是全卷基本盘</td><td>摸底卷这类题错在计算与审题（详见第五章）</td></tr>
+  <tr><td><b>中档（约30分）</b></td><td>选择10–11、填空17、解答21–23</td><td>考方法熟练度，2026年起占比上升</td><td>行程分段函数（23题同款）是最大失分区</td></tr>
+  <tr><td><b>难题（约18分）</b></td><td>选择12、填空18、解答24–25</td><td>压轴，区分度所在，拿步骤分也是分</td><td>摸底压轴整题空白：时间分配+方法双缺</td></tr>
+</table>
+
+<div class="tip"><b>家长/小鱼记牢：</b>天津卷 60% 以上是基础分。八下期末数学 87/120（73%），说明基础分还没拿稳；把「选择1–9 + 填空13–16 + 解答19–20」练到接近全对，就能先站上 100 分。压轴题的战略是「拿步骤分」，不是「做出来」。</div>
+
+<!-- ================= 第二章 ================= -->
+<h2 class="sec" id="s2">第二章　历年考点分布：近5年（2022–2026）到底考了什么</h2>
+<p class="lead">下表按题号归纳近5年天津中考真题考点（依据 2026 真题逐题解读、天津中考速记抢分手册、2022–2026 五年专题汇编等公开备考资料整理，个别题号年际有微调，以当年真题为准）。</p>
+
+<h3>2.1 选择题 1–12（每题3分）—— 规律最固定</h3>
+<table>
+  <tr><th>题号</th><th>高频考点</th><th>热度</th><th>2026 年实际考法</th></tr>
+  <tr><td>1</td><td>有理数运算（含乘方、绝对值、符号）</td><td><span class="lv lv-must">必考 5/5</span></td><td>计算 5+(−2)</td></tr>
+  <tr><td>2</td><td>三视图 / 轴对称·中心对称图形识别（5年轮换）</td><td><span class="lv lv-must">必考 5/5</span></td><td>三视图（空间图形识别）</td></tr>
+  <tr><td>3</td><td>轴对称 / 中心对称识别（汉字、标识、交通标志素材）</td><td><span class="lv lv-must">必考 5/5</span></td><td>图形对称识别</td></tr>
+  <tr><td>4</td><td>科学记数法（常结合时事：会展面积、人口、科技成果）</td><td><span class="lv lv-must">必考 5/5</span></td><td>世界智能产业博览会展览面积</td></tr>
+  <tr><td>5</td><td>无理数估算（√2≈1.414 等，找相邻完全平方数）</td><td><span class="lv lv-high">高频 4/5</span></td><td>无理数估值</td></tr>
+  <tr><td>6</td><td>特殊角三角函数值 / 函数图象与性质（反比例比大小等）</td><td><span class="lv lv-must">必考 5/5</span></td><td>反比例函数图象上三点比较函数值大小</td></tr>
+  <tr><td>7</td><td>分式运算（化简求值）</td><td><span class="lv lv-high">高频 4/5</span></td><td>分式运算</td></tr>
+  <tr><td>8</td><td>列方程解应用题（一元一次 / 二元一次方程组建模）</td><td><span class="lv lv-must">必考 5/5</span></td><td>《九章算术》「共买羊」一元一次方程建模</td></tr>
+  <tr><td>9</td><td>函数图象上点的坐标 / 一次函数·反比例函数基础</td><td><span class="lv lv-must">必考 5/5</span></td><td>函数点坐标相关</td></tr>
+  <tr><td>10</td><td>尺规作图 + 等腰三角形性质 / 三角形外角</td><td><span class="lv lv-high">高频 4/5</span></td><td>尺规作垂线 + 等腰三角形 + 外角综合</td></tr>
+  <tr><td>11</td><td>几何变换综合（旋转为主，勾股+面积）—— 2026 起难度上升</td><td><span class="lv lv-must">必考 5/5</span></td><td>直角三角形旋转：旋转性质+勾股+面积</td></tr>
+  <tr><td>12</td><td>二次函数 / 几何动点压轴（最值、存在性、分类讨论）</td><td><span class="lv lv-must">必考 5/5</span></td><td>矩形双动点：平行四边形判定+二次函数最值</td></tr>
+</table>
+
+<h3>2.2 填空题 13–18（每题3分）</h3>
+<table>
+  <tr><th>题号</th><th>高频考点</th><th>热度</th><th>2026 年实际考法</th></tr>
+  <tr><td>13–14</td><td>幂的运算（同底数幂乘除、幂的乘方）、乘法公式（平方差/完全平方）、基础概率</td><td><span class="lv lv-must">必考 5/5</span></td><td>幂运算 / 乘法公式轮换</td></tr>
+  <tr><td>15–16</td><td>函数图象平移（左加右减、上加下减）/ 一次函数、反比例函数性质</td><td><span class="lv lv-must">必考 5/5</span></td><td>一次函数平移求与 x 轴交点</td></tr>
+  <tr><td>16–17</td><td>几何求长度/角度（勾股、中位线、角平分线、旋转）</td><td><span class="lv lv-must">必考 5/5</span></td><td>几何计算（勾股+开方化简）</td></tr>
+  <tr><td>17</td><td><b>天津特色难题</b>：格点 / 正方形「十字架+对角线」综合；菱形与等边三角形</td><td><span class="lv lv-must">必考 5/5</span></td><td>菱形与等边三角形综合</td></tr>
+  <tr><td>18</td><td><b>天津王牌</b>：网格无刻度直尺作图（2023+最值、2024+路径长、2025难度降、2026+半圆）</td><td><span class="lv lv-must">必考 5/5</span></td><td>网格无刻度直尺作图 + 半圆</td></tr>
+</table>
+
+<h3>2.3 解答题 19–25 —— 七年不换的固定考位</h3>
+<table>
+  <tr><th>题号</th><th>分值</th><th>固定考点</th><th>2026 年实际考法</th><th>难度</th></tr>
+  <tr><td>19</td><td>8</td><td>解不等式组（或解方程）—— 步骤规范分</td><td>解不等式组</td><td>基础</td></tr>
+  <tr><td>20</td><td>8</td><td>统计与概率：补全统计图 + 中位数/众数/平均数 + 概率 + 样本估计总体</td><td>统计图表 + 概率</td><td>基础</td></tr>
+  <tr><td>21</td><td>10</td><td>圆综合：切线判定/性质 + 圆周角 + 垂径定理（常加解直角三角形）</td><td>圆、切线、圆周角 + 解直角三角形</td><td>中档</td></tr>
+  <tr><td>22</td><td>10</td><td>解直角三角形应用：仰角/俯角/坡角测高测距（常配天津地标）</td><td>引滦入津工程纪念碑测高</td><td>中档</td></tr>
+  <tr><td>23</td><td>10</td><td>一次函数/分段函数应用：图象信息 + 分段解析式 + 比大小</td><td>民俗文化馆·体育公园骑行路线</td><td>中档</td></tr>
+  <tr><td>24</td><td>10</td><td>几何变换综合：折叠/旋转/平移 + 重叠面积 + 最值（天津铁三角）</td><td>四边形折叠，重叠部分面积 + 二次函数最值</td><td>压轴</td></tr>
+  <tr><td>25</td><td>10</td><td>二次函数 + 几何综合：解析式 + 面积（铅垂高法）+ 存在性 + 最值</td><td>二次函数动点综合（延续）</td><td>压轴</td></tr>
+</table>
+
+<h3>2.4 压轴题近3年一览（填空18 / 解答24 / 解答25）</h3>
+<table>
+  <tr><th>年份</th><th>18 题（网格作图）</th><th>24 题（几何压轴）</th><th>25 题（函数压轴）</th></tr>
+  <tr><td>2023</td><td>网格作图 + 最值</td><td>折叠 + 旋转 + 相似</td><td>二次函数 + 胡不归模型</td></tr>
+  <tr><td>2024</td><td>网格作图 + 路径长</td><td>折叠 + 中点 + 相似</td><td>二次函数 + 对称 + 最值</td></tr>
+  <tr><td>2025</td><td>网格作图（难度降低）</td><td>折叠 + 旋转 + 相似</td><td>二次函数 + 平行四边形 + 最值（a&lt;0、b&gt;0、二倍角、CE+CF 最小）</td></tr>
+  <tr><td>2026</td><td>网格作图 + 半圆（圆的性质）</td><td>四边形折叠 + 重叠面积 + 二次函数最值</td><td>二次函数动点综合（延续）</td></tr>
+</table>
+
+<div class="note"><b>结论一句话：</b>天津卷的「考点地图」近 5 年几乎没变——送分题换数字不换位置，压轴题换场景不换工具（几何变换 + 二次函数 + 网格作图是三大王牌）。这正是「预判 2027」最可靠的依据。</div>
+
+<!-- ================= 第三章 ================= -->
+<h2 class="sec" id="s3">第三章　2027 考点预判：结合 2026 变化信号</h2>
+<p class="lead">预判不是猜题，是把「5年规律 + 2026 年新信号」外推一年。信号来源：2026 真题解读（试卷结构延续、中档题比例上升、数学文化情境增多）、2026 二轮备考资料（《算学启蒙》等古算典籍入题）、一线教师试卷分析。</p>
+
+<h3>3.1 2027 必考清单（结构锁定，放心复习）</h3>
+<table>
+  <tr><th>题号</th><th>2027 预判考点</th><th>判断依据</th></tr>
+  <tr><td>1–9</td><td>有理数运算、三视图/对称识别、科学记数法、无理数估算、三角值、分式、方程建模、函数点坐标</td><td>近5年每处≥4年必考，送分盘不动</td></tr>
+  <tr><td>13–16</td><td>幂运算、乘法公式、概率、函数平移、几何长度角度</td><td>填空基础盘，年际仅微调位置</td></tr>
+  <tr><td>18</td><td>网格无刻度直尺作图（可能回调难度，结合圆/对称）</td><td>2023–2026 连续4年，天津独有王牌</td></tr>
+  <tr><td>19–20</td><td>解不等式组；统计与概率</td><td>连续5年固定考位</td></tr>
+  <tr><td>21–23</td><td>圆综合；解直角三角形测高；一次函数/分段函数应用</td><td>连续5年固定考位，2027 大概率依旧</td></tr>
+</table>
+
+<h3>3.2 2027 中档与压轴预判</h3>
+<table>
+  <tr><th>题号</th><th>2027 预判方向</th><th>理由</th></tr>
+  <tr><td>11</td><td>几何变换（旋转/折叠）继续加难度，可能与函数图象结合</td><td>2026 起中档题比例上升，11 题难度明显上抬</td></tr>
+  <tr><td>12</td><td>二次函数动点面积 / 存在性问题（平行四边形、等腰、最值）</td><td>2026 考双动点+平行四边形+最值，2025 考动点面积</td></tr>
+  <tr><td>17</td><td>正方形十字架 / 菱形等边 / 格点计算类难题</td><td>天津特色填空难题，5年必考</td></tr>
+  <tr><td>24</td><td>折叠（或旋转）+ 相似 + 重叠面积最值，「铁三角」大概率延续</td><td>2023–2026 四年全部落在折叠/旋转+面积/相似</td></tr>
+  <tr><td>25</td><td>二次函数 + 几何：解析式→面积最值→存在性（平行四边形/等腰/二倍角）</td><td>十年九考二次函数；几何条件决定代数解是天津核心模式</td></tr>
+</table>
+
+<h3>3.3 2027 可能新增/加重的考法（值得留意，不必押注）</h3>
+<div class="tip">① <b>数学文化情境</b>：《九章算术》已考（2026 第8题），《算学启蒙》等古算题持续入题；② <b>真实情境</b>：智能博览会、引滦入津等天津元素；③ <b>新定义/探究题</b>：几何与函数的新定义探究正在加重；④ <b>跨学科</b>：与物理、地理数据结合的概率统计题。</div>
+
+<h3>3.4 2027 考点热度总览（按模块）</h3>
+<table>
+  <tr><th>模块</th><th>覆盖题号</th><th>近5年热度</th><th>分值估计</th><th>复习优先级（小鱼）</th></tr>
+  <tr><td>数与式（实数/幂/公式/分式/根式）</td><td>1,4,5,7,13,14</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈18–21分</td><td>★★★ 已建课，维持</td></tr>
+  <tr><td>方程与不等式（一元一次/二次/方程组/不等式组）</td><td>8,19,（15）</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈14–20分</td><td>★★★★★ 摸底重灾区（配方/判别式/韦达）</td></tr>
+  <tr><td>函数（一次/反比例/二次/分段应用）</td><td>6,9,12,15,16,23,25</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈30–36分</td><td>★★★★★ 摸底最大失分区（平移/分段/压轴）</td></tr>
+  <tr><td>图形性质（三角形/四边形/圆/勾股）</td><td>2,3,10,17,21,24</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈27–33分</td><td>★★★★ 几何综合待加强</td></tr>
+  <tr><td>图形变换（对称/旋转/折叠/网格作图）</td><td>3,11,18,24</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈16–20分</td><td>★★★★ 网格作图先会基础</td></tr>
+  <tr><td>三角函数与解直角（应用）</td><td>6,13,22</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈13–16分</td><td>★★★★ 22题10分固定，测高模型要会</td></tr>
+  <tr><td>统计与概率</td><td>14,20</td><td><span class="hotbar"><i style="width:100%"></i></span>必考</td><td>≈11分</td><td>★★★ 8+3分固定，背步骤</td></tr>
+</table>
+
+<!-- ================= 第四章 ================= -->
+<h2 class="sec" id="s4">第四章　3分钟费曼复盘脚本库（25题）</h2>
+<p class="lead">每张「考点卡」= 一个考点的 3 分钟费曼复盘脚本，严格按 30s–60s–60s–30s 分配：<b>①一句话讲清</b>（讲给完全不懂的人）→ <b>②展开讲</b>（2–3 个要点，说清来龙去脉）→ <b>③自查三问</b>（自己问自己，答不出 = 没懂）→ <b>④天津陷阱</b>（这个点天津最爱挖的坑）。用法见第六章。</p>
+
+<div class="grp"><b>▍选择题 1–9：送分盘（会算 + 不粗心 = 全拿）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第1题</span><span class="nm">有理数运算（含乘方符号）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i17a 求根公式约分（同源）</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>有理数运算就三句话——先乘方、再乘除、最后加减；有括号先算括号；负号没被括号圈住，就不参与乘方。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）运算顺序：乘方→乘除→加减，括号最大；2）符号：−3²=−9、(−3)²=9；奇次方保号、偶次方变正；3）绝对值像括号，先把里面算完再脱。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 −2²+(−2)³ = ？　Q2 为什么 (−2)³ 是负数而 (−2)² 是正数？　Q3 |3−7| 先算什么？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>把 −3² 算成 9（负号没进括号不参与平方）；把 |3−7| 拆成 |3|−|7|（绝对值必须先算里面）。</div>
+  <div class="src">真题：2026 第1题（5+(−2)）；2023–2024 第1题同型。来源：2026真题逐题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第2题</span><span class="nm">三视图</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>题位：与轴对称识别在 2–3 题轮换</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>三视图就是分别从正面、左面、上面三个方向看一个物体，各画一张「看到什么形状」的图。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）主视图看「长和高」、左视图看「宽和高」、俯视图看「长和宽」；2）口诀：主俯长对正，主左高平齐，俯左宽相等；3）小正方体堆叠题：俯视图定地基，每个格子里标层数。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 圆柱的三视图分别是什么？　Q2 主视图和俯视图中哪个尺寸相同？　Q3 看到俯视图能确定物体的什么？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>圆柱的俯视图是圆（不是椭圆）；圆锥俯视图的圆心要画点；数小正方体时漏数被挡住的。</div>
+  <div class="src">真题：2026 第2题；2022–2025 第2/3题轮换。来源：2026真题逐题解读、五年专题汇编。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第3题</span><span class="nm">轴对称 / 中心对称识别</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>素材：汉字、标识、交通标志、几何图案</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>沿一条线对折能完全重合的是轴对称；绕一个点转 180° 还能重合的是中心对称。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）轴对称常见：等腰三角形、矩形、菱形、正方形、圆、正多边形；2）中心对称常见：平行四边形、矩形、菱形、正方形、圆；3）既是轴对称又是中心对称：矩形、菱形、正方形、圆——就这四个四边形加圆。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 平行四边形是轴对称图形吗？　Q2 为什么矩形既轴对称又中心对称？　Q3 「甲、由、中、申」哪个不是轴对称汉字？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>平行四边形只有中心对称（对角线交点），没有对称轴；等边三角形是轴对称、不是中心对称。</div>
+  <div class="src">真题：2022–2026 选择题第2/3题区间（2026 该位考三视图）；素材常为汉字/交通标志。来源：专题08「图形的变化」五年汇编（明确「第2题固定考点，5年每年必考」）。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第4题</span><span class="nm">科学记数法</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2026 结合世界智能产业博览会</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>科学记数法就是把大数或小数写成「一个 1 到 10 之间的数 × 10 的整数次幂」。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）格式 a×10ⁿ，必须 1≤|a|&lt;10；2）大数：小数点左移 n 位 → 10ⁿ（记：1万=10⁴，1亿=10⁸）；3）小数：小数点右移 n 位 → 10⁻ⁿ；4）先统一单位再写（万、亿、万亿）。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 0.000025 怎么写？　Q2 35000 怎么写？　Q3 5.2×10⁶ 展开是多少？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>把 a 写成 25（必须 1≤a&lt;10）；小数指数符号写反（右移 n 位是 −n）；单位「亿」换算漏 8 个零。</div>
+  <div class="src">真题：2026 第4题；2022–2025 轮换。来源：2026真题逐题解读、速记抢分手册。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第5题</span><span class="nm">无理数估算</span><span class="lv lv-high">高频 4/5</span><span class="lv lv-must">2027：大概率考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:75%"></i></span></span><span>题位：4–6 题区间</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>估算无理数就是找它「前后两个能开方的整数」，把它夹在中间。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）先背熟 √2≈1.414、√3≈1.732、√5≈2.236；2）方法：找相邻完全平方数——√7：4&lt;7&lt;9，所以 2&lt;√7&lt;3；3）更精确：2.6²=6.76、2.7²=7.29，所以 2.6&lt;√7&lt;2.7。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 √13 在哪两个整数之间？　Q2 为什么 √4 不是无理数？　Q3 √8 估算约等于几？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>拿错相邻平方数（√13 用 4 和 5，不是 3 和 4——9&lt;13&lt;16）；把能开尽的 √4、√9 当无理数。</div>
+  <div class="src">真题：2022–2025 轮换出现（第4–6题区间）。来源：速记抢分手册（√2/√3/√5 估值与夹逼法）。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第6题</span><span class="nm">特殊角三角函数值 / 函数图象性质</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2026 考反比例三点比大小</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>30°、45°、60° 的 sin、cos、tan 值背熟一张表；函数图象上的点，横纵坐标一定满足关系式。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）sin30°=1/2、sin45°=√2/2、sin60°=√3/2（递增）；2）cos 反过来递减：cos30°=√3/2、cos45°=√2/2、cos60°=1/2；3）tan30°=√3/3、tan45°=1、tan60°=√3；4）反比例 y=k/x 上，任意点 x·y=k，比大小看 k 与 x 的符号。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 sin60° = ？　Q2 cos45° = ？　Q3 反比例函数 k&gt;0 时，x&gt;0 的 y 是正还是负？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>sin 和 cos 记反；tan60°=√3（不是 √3/3）；反比例三点比大小不看图象高低、只看 k 和 x 的符号组合。</div>
+  <div class="src">真题：2026 第6题（反比例三点比较）；三角值年年轮换。来源：2026真题逐题解读、速记手册特殊角表格。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第7题</span><span class="nm">分式运算（化简求值）</span><span class="lv lv-high">高频 4/5</span><span class="lv lv-must">2027：大概率考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:80%"></i></span></span><span>题位：7–9 题区间</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>分式就是「分母里有字母的分数」，加减乘除规则和分数一模一样。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）约分：分子分母同除公因式（只对乘除生效）；2）通分：找最简公分母；3）加减：先通分、再分子相加减；4）乘除：除以一个分式 = 乘它的倒数；5）结果必须化成最简分式。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 分母什么时候无意义？　Q2 分式值为 0 要满足什么？　Q3 1/x + 2/(x+1) 的第一步做什么？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>约分只约「乘除」不约「加减」（(x+1)/(x+1)+1 不能约）；通分漏乘分子；忘写分母 ≠ 0 的限制。</div>
+  <div class="src">真题：2022–2026 轮换（第7–9题区间）。来源：速记抢分手册分式模块。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第8题</span><span class="nm">列方程解应用题（建模）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考（文化情境概率大）</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2026 考《九章算术》「共买羊」</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>列方程就是把题目里的「等量关系」翻译成数学式子——找到「什么等于什么」，再解出来。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）找等量关系：总和、差、倍数、「每人×人数=总数」、速度×时间=路程；2）设未知数：问什么设什么，或设中间量；3）列→解→检验（合不合理）→答；4）古算题套路：人、物、钱三者的「每人分几个」型。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 列方程题第一步先找什么？　Q2 解出 x=−3 且题目问人数，要怎么办？　Q3 二元一次方程组怎么消元？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>忘检验实际意义（人数不能为负、物品件数要是整数）；去分母漏乘常数项；「共买羊」类题设错未知数导致列不出方程。</div>
+  <div class="src">真题：2026 第8题（《九章算术》共买羊）；2025 轮换二元一次方程组。来源：2026真题逐题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第9题</span><span class="nm">函数图象上点的坐标 / 函数基础</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i12（平行求解析式）、i13（正比例定义）</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>点能不能站上函数图象，就看把 x 代进去算出来的 y 是不是它给的纵坐标。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）代入检验法：点(2,3)在 y=x+1 上吗？2 代进去得 3，在；2）一次函数 y=kx+b：k 定方向（k&gt;0 上升、k&lt;0 下降），b 定与 y 轴交点高低；3）正比例函数 y=kx：x 的次数必须是 1 且 k≠0；4）两直线平行 ⇔ k 相等。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 正比例函数要求 x 的次数是几？　Q2 两直线平行说明什么相等？　Q3 点(1,4)在 y=−2x+b 上，b 等于几？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>正比例函数漏条件（x 次数=1 之外还要 k≠0）；平行只想到截距、想不到斜率；代入时把 x、y 对调。</div>
+  <div class="src">真题：2022–2026 轮换（第7–9题区间）。来源：速记抢分手册、2026真题解读；i12/i13 为小鱼摸底原题。</div>
+</div>
+
+<div class="grp"><b>▍选择题 10–12：中档与压轴（方法熟练度分水岭）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第10题</span><span class="nm">尺规作图 + 等腰三角形 / 外角</span><span class="lv lv-high">高频 4/5</span><span class="lv lv-must">2027：大概率考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:80%"></i></span></span><span>2026 考作垂线</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>尺规作图 = 只用圆规和没刻度的直尺作图；画完图往往还要用等腰三角形、外角的性质求角或长度。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）必会四作图：垂直平分线、角平分线、过一点作垂线、作平行线；2）作垂线步骤：以点为圆心画弧交直线于两点→分别以这两点为圆心等半径画弧→交点连线即垂线；3）作图后常用：垂直平分线到两端点距离相等、等腰两底角相等、外角 = 不相邻两内角和。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 作角平分线的步骤是什么？　Q2 垂直平分线上的点到线段两端点有什么关系？　Q3 三角形外角等于什么？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>圆规半径取太小（两弧交不到）；把垂直平分线画成角平分线；外角定理方向用反。</div>
+  <div class="src">真题：2026 第10题（作垂线+等腰+外角）。来源：2026真题逐题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第11题</span><span class="nm">几何变换综合（旋转）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：继续加难</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2026 起难度上升信号</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>旋转的三大不变量：图形全等、对应点到旋转中心距离相等、对应点与中心连线夹角都等于旋转角。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）旋转前后全等 → 对应边相等、对应角相等；2）求旋转后的长度：常构造直角三角形用勾股；3）求面积：全等图形面积不变，或割补；4）注意旋转方向（顺/逆时针）和旋转角。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 旋转 60° 后，图形上的点与旋转中心连线的夹角是多少？　Q2 旋转后哪些量不变？　Q3 旋转+求长度，一般先做什么辅助线？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>旋转方向看反（顺/逆时针）；把「旋转角」当成图形内角；漏找旋转前后的对应边。</div>
+  <div class="src">真题：2026 第11题（直角三角形旋转）；2023–2025 第24题折叠+旋转+相似同源。来源：2026真题逐题解读、压轴预测模型。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第12题</span><span class="nm">二次函数 / 几何动点（选择压轴）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i20（动点+平行四边形）同源</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>动点题 = 点动起来，把它的位置写成「含参数的坐标」，再用几何条件列方程解出来。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）设动点 P(t, 用 t 表示的 y)；2）用 t 表示线段长、面积；3）列方程：平行四边形用「对角线互相平分」（中点重合），面积最值用二次函数配方；4）分类讨论：点在不同边上，式子不同。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 平行四边形存在性，通用结论是什么？　Q2 二次函数面积最值怎么求？　Q3 为什么动点题要分类讨论？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>分类讨论漏情况；线段长忘加绝对值；最值忘了看自变量取值范围（定义域）。</div>
+  <div class="src">真题：2026 第12题（矩形双动点+平行四边形+最值）；2025 二次函数动点面积。来源：2026真题逐题解读、压轴预测模型。</div>
+</div>
+
+<div class="grp"><b>▍填空题 13–16：基础盘（代数变形 + 几何直观）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第13题</span><span class="nm">幂的运算</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>题位：13–14</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>四个幂法则：同底数幂相乘指数<b>加</b>，幂的乘方指数<b>乘</b>，同底数幂相除指数<b>减</b>，积的乘方各自乘方。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）aᵐ·aⁿ=aᵐ⁺ⁿ；2）(aᵐ)ⁿ=aᵐⁿ；3）aᵐ÷aⁿ=aᵐ⁻ⁿ；4）(ab)ⁿ=aⁿbⁿ；5）a⁰=1（a≠0）、a⁻ᵖ=1/aᵖ。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 a³·a² = ？　Q2 (a³)² = ？　Q3 哪个法则是指数「相乘」？哪个是「相加」？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>把 a³·a² 算成 a⁶（加写成乘）；a⁰ 忘前提 a≠0；负指数忘取倒数。</div>
+  <div class="src">真题：2022–2026 填空13–14区间。来源：速记抢分手册。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第14题</span><span class="nm">乘法公式（平方差 / 完全平方）</span><span class="lv lv-high">高频 4/5</span><span class="lv lv-must">2027：大概率考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:80%"></i></span></span><span>题位：13–14</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>平方差：(a+b)(a−b)=a²−b²；完全平方：(a±b)²=a²±2ab+b²——看到结构就套。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）平方差：两数和 × 两数差 = 两数平方差（首平方 − 尾平方）；2）完全平方：首平方 ± 2倍首尾 + 尾平方，中间那项最容易丢；3）识别：两项 → 平方差；三项 → 完全平方；4）用途：因式分解、分式化简的底子。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 (x+3)(x−3) = ？　Q2 (x−3)² = ？　Q3 怎么一眼判断用哪个公式？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>完全平方漏「±2ab」；平方差的减号位置写反（写成 a²+b²）；和因式分解混着用时符号错。</div>
+  <div class="src">真题：2022–2026 轮换（填空13–14）。来源：速记抢分手册。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第15题</span><span class="nm">概率（基础计算）</span><span class="lv lv-high">高频 4/5</span><span class="lv lv-must">2027：大概率考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:80%"></i></span></span><span>两步试验：列表法 / 树状图</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>概率 = 符合条件的结果数 ÷ 所有等可能结果数；两步试验用列表或树状图把结果数全数出来。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）P(A)=m/n，n 是所有等可能结果、m 是符合的结果；2）两步试验：列表法（两个因素）或树状图（三步以上）；3）放回 vs 不放回：放回总数不变，不放回总数少 1；4）用样本估计总体：样本比例 × 总体数量。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 掷一枚骰子得到偶数的概率？　Q2 两枚硬币一正一反的概率？　Q3 不放回为什么总数要减？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>结果数数漏（把「等可能」数成「不同」）；不放回还按原总数算；概率算出大于 1。</div>
+  <div class="src">真题：2022–2026 填空或解答20题。来源：速记抢分手册。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第16题</span><span class="nm">函数图象平移（一次 / 反比例）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i3（平移求交点）原题同款</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>平移口诀：「左加右减」改 x，「上加下减」改常数项——方向相反，只此一条。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）上下平移 n 个单位：常数项 ±n（上加下减）；2）左右平移 n 个单位：x 换成 (x∓n)（左加右减，方向相反）；3）y=2x−3 向下平移 1 个单位 → y=2x−4；4）求与 x 轴交点令 y=0，与 y 轴交点令 x=0。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 y=2x−3 向下平移 1 个单位得什么？　Q2 平移后与 x 轴交点怎么求？　Q3 为什么左右平移方向和直觉相反？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>上下平移去改 x、左右平移去改常数项（记反）；算完交点坐标不代入检验。</div>
+  <div class="src">真题：2026 第16题（一次函数平移）；2022–2025 填空15–16区间；i3 为小鱼摸底原题同款。来源：2026真题逐题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第16–17题</span><span class="nm">几何求长度 / 角度（勾股 / 中位线 / 角平分线）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i15（勾股√20化简）原题同款</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>求长度三大工具：勾股定理、相似三角形、三角函数；求角度看角平分线、中位线、外角。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）勾股：直角三角形 a²+b²=c²；2）30° 角所对直角边 = 斜边一半；3）中位线 = 第三边一半且平行于第三边；4）角平分线性质：到角两边距离相等；5）开方要化简到底：√20=2√5（提平方因子 4）。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 勾股数 3、4、5 之外还知道哪些？　Q2 中位线有两个结论，分别是什么？　Q3 √32 化简成什么？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>开方不化简（√20 写成 √20 丢分）；30° 对边和斜边搞反；中位线记成「第三边的一半」以外的比例。</div>
+  <div class="src">真题：2022–2026 填空16–17区间；i15 为小鱼摸底原题（√20 化简错）。来源：2026真题逐题解读。</div>
+</div>
+
+<div class="grp"><b>▍填空题 17–18：天津特色难题（能拿一小题是一小题）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第17题</span><span class="nm">格点 / 正方形「十字架+对角线」综合</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考（天津特色）</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2026 考菱形与等边三角形</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>格点题 = 把图形放进坐标系，用坐标差 + 勾股算长度，用斜率判平行垂直。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）建系：以格点为原点，写出各点坐标；2）距离：√((x差)²+(y差)²)；3）垂直 ⇔ 两直线斜率乘积 = −1；4）面积用割补或 Pick 公式：S = 内部格点数 + 边界格点数/2 − 1；5）正方形十字架模型：E、F 在相邻边上且 AE=BF，则 DE⊥AF。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 两点 (1,2)、(4,6) 的距离？　Q2 怎么用斜率判断两条线垂直？　Q3 正方形十字架模型的条件和结论是什么？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>坐标差算错符号；Pick 公式边界格点漏算；十字架条件（AE=BF）用反。</div>
+  <div class="src">真题：2022–2025 第17题（正方形十字架）；2026 第17题（菱形与等边三角形）。来源：速记抢分手册天津特色模块、2026真题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第18题</span><span class="nm">网格无刻度直尺作图（天津王牌）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：大概率继续考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2023–2026 连续 4 年</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>无刻度直尺不能量、不能量角，只能画直线——所以全靠网格的「平行、垂直、中点、对称」性质来作图。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）平行线：沿着网格线或对角线方向画；2）中点：利用矩形对角线交点、或用网格对称点；3）垂直平分线：找两端点各自关于网格的对称点连线；4）2026 与半圆结合：先用圆的性质（直径所对圆周角 90°）找点，再连线；5）策略：先找关键点，再连线，不盲目试。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 无刻度直尺能画什么、不能画什么？　Q2 怎么在格点上找一条线段的中点？　Q3 怎么作一条与已知线平行的线？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>试图量长度或角度（没刻度，量不了）；不用网格特性硬画；忘记「保留作图痕迹」的规范。</div>
+  <div class="src">真题：2023（+最值）、2024（+路径长）、2025（难度降）、2026（+半圆）。来源：压轴题预测模型、2026真题解读。</div>
+</div>
+
+<div class="grp"><b>▍解答题 19–20：白送的 16 分（先拿稳）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第19题</span><span class="nm">解不等式组 / 解方程（步骤规范分）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>8 分固定题</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>解不等式组 = 分别解每个不等式，再取它们的公共部分；步骤每一步都有分，规范写。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）每步：去分母→去括号→移项→合并→系数化 1；2）两边同乘除<b>负数</b>要变号（这是必考扣分点）；3）解集口诀：同大取大，同小取小，大小小大中间找，大大小小无解了；4）数轴表示：实心点 = 能取到，空心点 = 取不到。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 −2x&gt;4 的解集为什么是 x&lt;−2？　Q2 去分母时漏乘了哪一项最容易错？　Q3 两个解集「同大」取哪个？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>乘除负数忘变号；去分母漏乘不含分母的常数项；边界点空心实心标错。</div>
+  <div class="src">真题：2022–2026 连续 5 年第19题。来源：速记抢分手册解答题模块。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第20题</span><span class="nm">统计与概率（补图 + 三数 + 概率 + 估计）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>8 分固定题</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>统计题四步走：补全统计图 → 求中位数/众数/平均数 → 算概率 → 用样本估计总体。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）补图：总数 × 比例 = 频数；2）中位数：<b>先排序</b>，奇数个取中间，偶数个取中间两个的平均；3）众数 = 出现次数最多的数（可以不唯一）；4）平均数 = 总和 ÷ 个数；5）概率用列表/树状图；6）估计：样本比例 × 总体数量。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 中位数为什么要先排序？　Q2 众数一定是唯一的吗？　Q3 扇形图缺一块，怎么用已知数据补？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>中位数忘排序；加权平均的权重乘错；估计总体时忘乘总数量。</div>
+  <div class="src">真题：2022–2026 连续 5 年第20题。来源：速记抢分手册。</div>
+</div>
+
+<div class="grp"><b>▍解答题 21–23：中档 30 分（方法熟练度主战场）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第21题</span><span class="nm">圆综合（切线 / 圆周角 / 垂径定理）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>10 分固定题</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>圆题三板斧：看到切线<b>连半径得垂直</b>，看到直径<b>找 90° 圆周角</b>，看到弦<b>想垂径定理</b>。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）切线判定：连半径证垂直；切线性质：切线垂直于过切点的半径；2）圆周角：同弧所对圆周角相等；直径所对圆周角 = 90°；3）垂径定理：垂直于弦的直径平分弦，也平分弦所对的两条弧；4）求线段长：相似三角形、勾股、三角函数三选一。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 证明一条线是切线，第一步做什么？　Q2 直径所对圆周角多少度？　Q3 垂径定理的结论有几个？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>切线判定「连半径证垂直」顺序写反；圆周角定理找错弧；垂径定理忘了「平分两条弧」。</div>
+  <div class="src">真题：2022–2026 连续 5 年第21题；2026 圆+切线+圆周角+解直角三角形。来源：速记抢分手册、2026真题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第22题</span><span class="nm">解直角三角形应用（测高测距）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>2026 引滦入津纪念碑测高</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>解直角应用 = 作垂线构造直角三角形，用三角函数列方程求高或距离。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）识别角：仰角/俯角从<b>水平线</b>量起，坡角是坡面与水平面夹角；2）构造：作垂线出直角三角形；3）三大模型：背靠背（共用一条直角边）、重叠型、母抱子（大三角形含小三角形）；4）选函数：已知邻边求对边用 tan，斜边用 sin/cos；5）算完检验合理性。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 仰角和俯角分别从哪条线量起？　Q2 测楼高一般用哪个三角函数？　Q3 背靠背模型怎么做辅助线？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>仰角俯角画反；解出塔高 2000 米也不检验；单位不统一（米 vs 千米）。</div>
+  <div class="src">真题：2022–2026 连续 5 年第22题；2026 引滦入津工程纪念碑。来源：2026真题逐题解读、速记手册。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第23题</span><span class="nm">一次函数 / 分段函数应用（行程）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i19a–d 四连错（最大失分区）★★★</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>行程函数题 = 读图分「走–停–走」三段，每段先写区间再写解析式；两线比大小就分段列不等式。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）横轴时间、纵轴路程，斜率 = 速度；水平段 = 停留（距离不变）；2）分段函数写全三件套：区间 + 解析式 + 每段都用待定系数法（两点定线）；3）比大小（y₁&lt;y₂）：按段列不等式，逐段解，最后合并；4）返回段：速度 = 路程 ÷ 时间，算完看数量级对不对（0.12 km/min 才是合理值）。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 图象上的水平线代表什么？　Q2 写分段函数，每一段要先写什么？　Q3 y₁&lt;y₂ 求 x 范围，一般分几步？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>漏写第一段或返回段（只写平台段）；区间边界重复或遗漏；速度 = 路程÷时间算反；把「每千米收费」当成全程均价（i6 错因同款）。</div>
+  <div class="src">真题：2022–2026 连续 5 年第23题；2026 骑行路线。i19a–d、i6 为小鱼摸底原题。来源：2026真题逐题解读、摸底卷分析。</div>
+</div>
+
+<div class="grp"><b>▍解答题 24–25：压轴 20 分（目标：拿稳前两问 + 步骤分）</b><span class="bar"></span></div>
+
+<div class="card">
+  <div class="ch"><span class="no">第24题</span><span class="nm">几何变换综合（折叠 / 旋转 / 平移 + 面积最值）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：延续「铁三角」</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i10、i16b（几何综合）相关</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>几何变换三原则：变换前后<b>全等</b>、先找<b>不变量</b>（等边等角）、最后<b>分类讨论 + 建系</b>算面积最值。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）折叠：折痕是对应点连线的垂直平分线，折痕两边角相等；2）旋转：全等 + 对应点到中心距离相等 + 夹角等于旋转角；3）平移：全等 + 对应点连线平行且相等；4）求重叠面积：按位置<b>分段</b>讨论形状 → 割补 → 二次函数求最值；5）建系法把几何变代数。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 折叠后哪些量不变？　Q2 为什么重叠面积要分段讨论？　Q3 面积最值用什么工具求？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>分类讨论漏阶段；不变量找错；面积表达式与定义域脱节（最值要回看 x 范围）。</div>
+  <div class="src">真题：2023–2026 连续4年第24题（折叠/旋转+相似+面积最值）。来源：压轴题预测模型、2026真题解读。</div>
+</div>
+
+<div class="card">
+  <div class="ch"><span class="no">第25题</span><span class="nm">二次函数 + 几何综合（解析式 → 面积 → 存在性 → 最值）</span><span class="lv lv-must">必考 5/5</span><span class="lv lv-must">2027：必考（十年九考）</span></div>
+  <div class="row"><span>热度：<span class="hotbar"><i style="width:100%"></i></span></span><span>你的摸底：i20（动点+平行四边形）同源</span></div>
+  <div class="part"><b>① 一句话讲清（30s）：</b>压轴四步：求解析式 → 设动点 → 用几何条件列方程 → 分类讨论求最值；拿不到满分也一定要写步骤分。</div>
+  <div class="part"><b>② 展开讲（60s）：</b>1）解析式三法：一般式 / 顶点式 / 交点式（已知三点，或顶点+一点）；2）面积用<b>铅垂高法</b>：S = ½ × 水平宽 × 铅垂高；3）存在性三件套：等腰（分三种腰）、直角（勾股/斜率积=−1）、平行四边形（对角线互相平分 = 中点重合）；4）最值：配方 / 顶点公式 + 定义域；5）天津特色：几何条件决定代数式能否解出——先把几何翻译成代数式。</div>
+  <div class="ask"><b>③ 自查三问（60s）：</b>Q1 铅垂高法怎么用？　Q2 平行四边形存在性用什么结论列方程？　Q3 等腰三角形存在性要分哪三种情况？</div>
+  <div class="trap"><b>④ 天津陷阱（30s）：</b>解析式求错全盘皆输（先验算）；分类讨论漏情况；忘了步骤分策略——设出坐标、列出关系式就有分。</div>
+  <div class="src">真题：2023 胡不归 / 2024 对称+最值 / 2025 平行四边形+最值 / 2026 动点综合。来源：压轴题预测模型、2026真题解读。</div>
+</div>
+
+<!-- ================= 第五章 ================= -->
+<h2 class="sec" id="s5">第五章　小鱼摸底错题 → 考点映射（专属）</h2>
+<p class="lead">依据《九年级开学转校生摸底练习（数学·耀华滨城）》录入平台的错题数据整理（2026-09-05 录入）。每一道摸底错题都指向一张第四章的考点卡——「卷子上的错」就是「复习的入口」。</p>
+
+<h3>5.1 错题 → 考点卡对照</h3>
+<table class="kmap">
+  <tr><th>摸底题</th><th>错因</th><th>考点</th><th>对应考点卡</th></tr>
+  <tr><td>i2　配方 (x+m)²=n 求 m+n</td><td>公式/方法</td><td>一元二次方程·配方法</td><td>第19题卡（方程）＋平台课 m07</td></tr>
+  <tr><td>i3　一次函数向下平移求与 x 轴交点</td><td>计算</td><td>函数图象平移</td><td><b>第16题卡</b>（原题同款）</td></tr>
+  <tr><td>i6　出租车分段收费图象信息判断</td><td>审题</td><td>分段函数图象读取</td><td><b>第23题卡</b>（陷阱同款）</td></tr>
+  <tr><td>i8　α²+2β+αβ 求值（韦达+降次）</td><td>方法</td><td>一元二次方程根与系数</td><td>第19题卡＋平台课 m07</td></tr>
+  <tr><td>i10　正方形多结论判断</td><td>方法</td><td>几何综合·多结论验证</td><td>第17题卡 / 第24题卡</td></tr>
+  <tr><td>i11　含参方程 (k−2)x²−4x−3=0 两个不等实根求 k</td><td>概念</td><td>判别式 + 二次项系数≠0</td><td>第19题卡＋平台课 m07</td></tr>
+  <tr><td>i12　与 y=−2x 平行且过 (1,4) 求解析式</td><td>方法</td><td>一次函数·平行→k 相等</td><td><b>第9题卡</b>＋平台课 m08</td></tr>
+  <tr><td>i13　正比例函数 y=mx^(m²−3) 二四象限求 m</td><td>概念</td><td>正比例函数定义 + 象限定符号</td><td><b>第9题卡</b>＋平台课 m08</td></tr>
+  <tr><td>i14　m 是方程根，求 6m²−9m+2016</td><td>方法</td><td>方程根·整体代入</td><td>第19题卡＋平台课 m07</td></tr>
+  <tr><td>i15　正方形 AF 长（勾股 √20 化简）</td><td>计算</td><td>勾股定理 + 开方化简</td><td><b>第17题卡</b>（原题同款）</td></tr>
+  <tr><td>i16b　矩形 + ∠FMN=75° 求 MN</td><td>方法</td><td>几何综合·坐标法/向量</td><td>第11题卡 / 第24题卡</td></tr>
+  <tr><td>i17a　求根公式解 5x²+2x−1=0 未约分</td><td>计算</td><td>求根公式 + 约分</td><td>第19题卡＋平台课 m07</td></tr>
+  <tr><td>i18a　含参方程有实数根求 m 范围</td><td>方法</td><td>Δ≥0 解参数不等式</td><td>第19题卡＋平台课 m07</td></tr>
+  <tr><td>i18b　韦达 + 降次整体代入求值</td><td>方法</td><td>韦达定理综合</td><td>第19题卡＋平台课 m07</td></tr>
+  <tr><td>i19a–d　行程分段函数（4 处错）</td><td>计算/方法</td><td>一次函数应用·分段函数</td><td><b>第23题卡 ★★★</b>＋平台课 m08</td></tr>
+  <tr><td>i20　动点 + 平行四边形压轴（空白）</td><td>时间</td><td>函数压轴·存在性</td><td>第12题卡 / 第25题卡</td></tr>
+</table>
+
+<h3>5.2 薄弱板块排行（按摸底错题计数）</h3>
+<table>
+  <tr><th>排名</th><th>板块</th><th>错题数</th><th>结论与对策</th></tr>
+  <tr><td><b>①</b></td><td><b>函数板块</b>（平移/分段/正比例/压轴）</td><td>8 处<br><span class="wk">i3</span><span class="wk">i6</span><span class="wk">i12</span><span class="wk">i13</span><span class="wk">i19×4</span><span class="wk">i20</span></td><td>最大失分区。23 题是 10 分固定大题，分段函数必须拿下；先补 m08 一次函数课，再练 i19 同款。</td></tr>
+  <tr><td><b>②</b></td><td><b>一元二次方程</b>（配方/判别式/韦达/代入）</td><td>7 处<br><span class="wk">i2</span><span class="wk">i8</span><span class="wk">i11</span><span class="wk">i14</span><span class="wk">i17</span><span class="wk">i18×2</span></td><td>方法没成体系：配方法、判别式两条件、韦达+降次要各做 3 道同型题闭环（平台 m07 已就位）。</td></tr>
+  <tr><td><b>③</b></td><td><b>几何综合</b>（多结论/勾股/坐标法）</td><td>3 处<br><span class="wk">i10</span><span class="wk">i15</span><span class="wk">i16b</span></td><td>多结论题逐条验证、开方化简、坐标法是三个具体缺口，对应第 17/24 题卡。</td></tr>
+</table>
+
+<div class="tip"><b>给爸爸的落地建议：</b>先把平台上数学课的顺序调成「m07 一元二次方程 → m08 一次函数 → m09 反比例 → m10 二次函数 → m12 四边形 → m13 三角函数 → m14 统计概率」，与摸底薄弱板块一一对应；每天 STEP 4 的费曼一句话，就按第四章对应考点卡来写（平台已同步升级，见第六章）。</div>
+
+<!-- ================= 第六章 ================= -->
+<h2 class="sec" id="s6">第六章　每天 3 分钟怎么用</h2>
+<p class="lead">费曼复盘的唯一标准：<b>能用自己的话讲出来、能回答追问，才算真掌握。</b>讲不出来 = 今天没懂，标记下来明天重学——这比做对几道题更重要。</p>
+
+<h3>6.1 每天 3 分钟（接在平台 STEP 4 之后）</h3>
+<table>
+  <tr><th>时间</th><th>做什么</th><th>做不好怎么办</th></tr>
+  <tr><td>0–1 分钟</td><td>今天学的考点，合上笔记，用第四章「一句话讲清」讲给爸爸/弟弟听（或对着镜子讲）</td><td>卡壳了 → 翻考点卡「展开讲」，再讲一遍</td></tr>
+  <tr><td>1–2 分钟</td><td>自己回答考点卡的「自查三问」，答案写下来（哪怕只写关键词）</td><td>答不出 → 用红笔圈住这个考点，第二天让平台重排</td></tr>
+  <tr><td>2–3 分钟</td><td>念一遍「天津陷阱」，用一句话说出「这个坑我记住了」</td><td>说不清陷阱 → 找出当年真题看一遍它怎么挖的坑</td></tr>
+</table>
+
+<h3>6.2 平台已同步升级的部分</h3>
+<ul>
+  <li>平台数学 14 课的「费曼一句话」已升级为<b>结构化 3 分钟脚本</b>（一句话 + 自查 + 易错），STEP 4 页面直接显示。</li>
+  <li>本手册第四章 25 张考点卡 = 完整版；平台每课对应其中 1–2 个考点，学哪课就看哪张卡。</li>
+  <li>周日复盘（r01 费曼复盘 / r05 高频考点自查）与手册配套：手册负责「讲什么」，复盘负责「查会不会」。</li>
+</ul>
+
+<h3>6.3 三轮复习怎么用本手册</h3>
+<table>
+  <tr><th>轮次</th><th>时间</th><th>用法</th></tr>
+  <tr><td>第1轮（现在 → 2027年1月）</td><td>每天跟着平台</td><td>只攻第四章「必考」卡（第1–9、13–16、19–23题），每张卡走完 3 分钟</td></tr>
+  <tr><td>第2轮（2027年2–4月，一模前）</td><td>周日整块</td><td>闭卷重做自查三问；答不出的卡打星，优先补；开始碰 17/24/25 题卡</td></tr>
+  <tr><td>第3轮（2027年5–6月）</td><td>考前 30 天</td><td>只背「天津陷阱」+ 必背公式（见下方附录），刷真题套卷练时间分配</td></tr>
+</table>
+
+<h3>6.4 附录：考前必背 10 条（对应第三章热度表）</h3>
+<table>
+  <tr><th>#</th><th>必背内容</th><th>对应题</th></tr>
+  <tr><td>1</td><td>−3²=−9，(−3)²=9；奇次方保号、偶次方变正</td><td>第1题</td></tr>
+  <tr><td>2</td><td>科学记数法 a×10ⁿ，1≤|a|&lt;10；1万=10⁴、1亿=10⁸</td><td>第4题</td></tr>
+  <tr><td>3</td><td>√2≈1.414、√3≈1.732、√5≈2.236；夹逼法找相邻平方数</td><td>第5题</td></tr>
+  <tr><td>4</td><td>sin30°=1/2、sin45°=√2/2、sin60°=√3/2；tan30°=√3/3、tan45°=1、tan60°=√3</td><td>第6/22题</td></tr>
+  <tr><td>5</td><td>幂法则：相乘加、乘方乘、相除减、积乘方各自乘；a⁰=1(a≠0)</td><td>第13题</td></tr>
+  <tr><td>6</td><td>(a+b)(a−b)=a²−b²；(a±b)²=a²±2ab+b²</td><td>第14题</td></tr>
+  <tr><td>7</td><td>平移口诀：左加右减改 x、上加下减改常数项</td><td>第16题</td></tr>
+  <tr><td>8</td><td>求根公式 x=[−b±√(b²−4ac)]/2a；韦达 x₁+x₂=−b/a、x₁x₂=c/a</td><td>第19题</td></tr>
+  <tr><td>9</td><td>切线连半径得垂直；直径所对圆周角 90°；垂径定理</td><td>第21题</td></tr>
+  <tr><td>10</td><td>铅垂高法 S=½×水平宽×铅垂高；平行四边形⇔对角线互相平分</td><td>第25题</td></tr>
+</table>
+
+<div class="note" style="margin-top:28px;">
+<b>数据来源与口径说明：</b>① 试卷结构、逐题考点、2026 真题考法：依据《2026 年天津市中考数学真题完全解读》（道客巴巴，2026-08）与 2026 天津中考数学试卷公开解析；② 高频考点规律（选择 1–9、填空 13–18、解答 19–25 固定考位）：依据《天津中考数学速记抢分手册（2026 天津专版）》、学科网《2022–2026 五年真题分类汇编（天津专用）·函数/图形的变化专题》、天津中考数学压轴题预测模型；③ 压轴近 3 年对比与 2026 难度变化：依据上述备考资料及一线教师试卷分析；④ 「2027 预判」为基于近 5 年规律与 2026 新信号的推测，非官方信息，最终以 2027 年真题为准；⑤ 小鱼错题数据：来自项目《学习记录.json》摸底卷分析（2026-09-05 录入，共 16 道错题）。
+</div>
+
+<div style="margin-top:20px;text-align:center;color:#9AA0A8;font-size:12px;">
+  数学费曼复盘手册 · 天津中考 2027 版 · 给小鱼（冯子妤）· 老闺女中考百天冲刺计划
+</div>
+
+</div>
+</body>
+</html>

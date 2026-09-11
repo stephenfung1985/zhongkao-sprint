@@ -56,14 +56,31 @@ const Speech = (function () {
     } catch (e) { voice = null; }
   }
 
-  /** 朗读一段文字，自动停止之前的朗读 */
-  function speak(text) {
-    if (!enabled || !("speechSynthesis" in window)) return;
+  /** 按字数估算朗读大概要花多久，用作 onEnd 迟迟不来时的保险丝。
+   *  中文正常语速约每秒4-5字，这里按稍慢的语速估，且给足余量；
+   *  最短1.2秒（太短的字幕也该有个停留），最长20秒封顶（避免长文本卡太久）。*/
+  function estimateMs(text) {
+    const len = String(text || "").length;
+    return Math.min(20000, Math.max(1200, len * 220));
+  }
+
+  /**
+   * 朗读一段文字，自动停止之前的朗读。
+   * onEnd：讲完之后调用，用于「先讲解、讲完再进入下一步」这类需要等待的场景。
+   *        —— 正常情况下由 speechSynthesis 的 onend/onerror 触发；
+   *        —— 但少数电脑上语音服务异常时，这两个事件可能永远不触发，
+   *           那样界面会卡住不动，所以额外兜底：按估算时长强制放行一次，
+   *           先到先得，不会重复调用。
+   */
+  function speak(text, onEnd) {
+    if (!enabled || !("speechSynthesis" in window)) { if (onEnd) onEnd(); return; }
     const clean = String(text || "").replace(/\*\*(.+?)\*\*/g, "$1")  // 去加粗标记
                                     .replace(/`(.+?)`/g, "$1")         // 去代码标记
                                     .replace(/<[^>]+>/g, "")           // 去HTML标签
                                     .trim();
-    if (!clean) return;
+    if (!clean) { if (onEnd) onEnd(); return; }
+    let done = false;
+    const finish = () => { if (done) return; done = true; if (onEnd) onEnd(); };
     try {
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(clean);
@@ -73,10 +90,11 @@ const Speech = (function () {
       u.pitch = 1.0;
       u.volume = 1.0;
       u.onstart = () => { speaking = true; updateIndicator(); highlightBubble(true); };
-      u.onend = () => { speaking = false; updateIndicator(); highlightBubble(false); };
-      u.onerror = () => { speaking = false; updateIndicator(); highlightBubble(false); };
+      u.onend = () => { speaking = false; updateIndicator(); highlightBubble(false); finish(); };
+      u.onerror = () => { speaking = false; updateIndicator(); highlightBubble(false); finish(); };
       window.speechSynthesis.speak(u);
-    } catch (e) {}
+      if (onEnd) setTimeout(finish, estimateMs(clean));
+    } catch (e) { finish(); }
   }
 
   function stop() {
@@ -182,15 +200,20 @@ const Socratic = (function () {
         speakText += opt.back + "。";
       }
       if (node.close) {
-        bubble("good", rich("<b>记住这句：</b>" + node.close));
+        bubble("good", "<b>记住这句：</b>" + rich(node.close));
         speakText += "记住这句：" + node.close;
       }
-      if (speakText) { Speech.setBubble(boxEl.lastChild); Speech.speak(speakText); }
       step++;
-      setTimeout(() => {
-        if (step >= chain.length) finish();
-        else ask();
-      }, 450);
+      const advance = () => { if (step >= chain.length) finish(); else ask(); };
+      // 语音开着且有内容要讲：等这段话真正讲完（+留半秒余量）才进入下一步，
+      // 不然下一题一开口，speechSynthesis 会把还没说完的讲解掐断。
+      // 语音关着或没内容：保留原来 450ms 的固定停顿，给她留时间读完气泡文字。
+      if (speakText && Speech.isEnabled()) {
+        Speech.setBubble(boxEl.lastChild);
+        Speech.speak(speakText, () => setTimeout(advance, 500));
+      } else {
+        setTimeout(advance, 450);
+      }
     } else {
       btn.classList.add("picked-no");
       btn.disabled = true;
@@ -198,14 +221,16 @@ const Socratic = (function () {
       const hintText = opt.back || "再想想——刚才那一步，你是怎么得到的？";
       const b = bubble("hint", rich(hintText));
       Speech.setBubble(b);
-      Speech.speak(hintText);
-      if (attempts >= 3 && node.rescue) {
-        setTimeout(() => {
-          const r = bubble("hint", rich("<b>给你搭个台阶：</b>" + node.rescue));
+      const showRescue = () => {
+        if (attempts >= 3 && node.rescue) {
+          const r = bubble("hint", "<b>给你搭个台阶：</b>" + rich(node.rescue));
           Speech.setBubble(r);
           Speech.speak("给你搭个台阶：" + node.rescue);
-        }, 1200);
-      }
+        }
+      };
+      // 同样的道理：等这句引导语讲完再出台阶，别把它打断
+      if (Speech.isEnabled()) Speech.speak(hintText, () => setTimeout(showRescue, 400));
+      else setTimeout(showRescue, 1200);
     }
   }
 
@@ -333,8 +358,8 @@ const Quiz = (function () {
     if (speakBtn) speakBtn.onclick = () => {
       if (typeof Speech !== "undefined") Speech.speak(explainText);
     };
-    // 答错时自动朗读解析
-    if (!ok && typeof Speech !== "undefined" && Speech.isEnabled()) {
+    // 答对答错都自动朗读解析——「回答正确也要讲解」，不只是错题才讲
+    if (typeof Speech !== "undefined" && Speech.isEnabled()) {
       setTimeout(() => Speech.speak(explainText), 400);
     }
 

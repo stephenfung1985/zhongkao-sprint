@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数学方法验证卷 · 韦达降次 / 整体代入 / 含参方程 / 分段函数</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    color: #1A1B1C;
+    background: #F4F3EE;
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 210mm;
+    margin: 16px auto;
+    background: #FFFFFF;
+    padding: 14mm 16mm;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .page-break { page-break-before: always; }
+
+  .header { text-align: center; border-bottom: 2px solid #1A1B1C; padding-bottom: 10px; }
+  .header h1 { font-size: 22px; letter-spacing: 2px; }
+  .header .sub { font-size: 13px; color: #374151; margin-top: 4px; }
+  .header .meta { font-size: 12px; color: #6B7280; margin-top: 2px; }
+  .info {
+    margin-top: 10px;
+    font-size: 13px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #374151;
+  }
+  .info span { border-bottom: 1px solid #9CA3AF; display: inline-block; min-width: 90px; }
+
+  .section { margin-top: 18px; }
+  .section h2 {
+    font-size: 15px;
+    background: #EEF2FB;
+    padding: 6px 10px;
+    border-left: 4px solid #9BBBF4;
+    margin-bottom: 10px;
+  }
+  .q { margin-bottom: 14px; font-size: 14px; }
+  .q .stem { margin-bottom: 4px; }
+  .q .options { padding-left: 18px; }
+  .q .options div { margin: 2px 0; }
+  .blank { display: inline-block; min-width: 90px; border-bottom: 1px solid #1A1B1C; }
+  .answer-space { min-height: 90px; }
+  .answer-space-sm { min-height: 60px; }
+  .note { font-size: 12px; color: #6B7280; margin-top: 2px; }
+  .tag {
+    display: inline-block; font-size: 11px; color: #555;
+    background: #F3F4F6; border: 1px solid #E4E3DD; border-radius: 4px;
+    padding: 0 6px; margin-left: 6px; vertical-align: 1px;
+  }
+  .score-line { margin-top: 22px; border-top: 1px dashed #D1D5DB; padding-top: 10px; font-size: 13px; color: #374151; }
+
+  /* 答案页 */
+  .ans h2 { margin-top: 16px; }
+  .ans-item { margin-bottom: 10px; font-size: 13.5px; }
+  .ans-item .a { color: #B45309; font-weight: 600; }
+  .ans-item .exp { color: #4B5563; }
+  .ans-item .method { color: #1D4ED8; font-size: 12px; }
+  table.criteria {
+    width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px;
+  }
+  table.criteria th, table.criteria td {
+    border: 1px solid #D1D5DB; padding: 6px 8px; text-align: left;
+  }
+  table.criteria th { background: #EEF2FB; }
+  .verdict { margin-top: 12px; background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 6px; padding: 10px 12px; font-size: 13px; }
+
+  @media print {
+    body { background: #FFFFFF; }
+    .page { box-shadow: none; margin: 0 auto; max-width: none; }
+    .page-break { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 题目卷 ============ -->
+<div class="page">
+  <div class="header">
+    <h1>数学方法验证卷</h1>
+    <div class="sub">专题：韦达降次 · 整体代入 · 含参方程 · 分段函数</div>
+    <div class="meta">满分 60 分 ｜ 建议用时 20 分钟 ｜ 仿九年级开学摸底卷题型</div>
+    <div class="info">
+      <span>姓名：</span><span>日期：</span><span>用时：</span><span>得分：</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>一、单选题（每题 3 分，共 12 分）</h2>
+
+    <div class="q">
+      <div class="stem">1. 若 α、β 是方程 x²−3x−2=0 的两个实数根，则 α²+αβ+3β 的值为（&nbsp;&nbsp;&nbsp;&nbsp;）<span class="tag">韦达降次</span></div>
+      <div class="options">
+        <div>A. 7</div><div>B. 8</div><div>C. 9</div><div>D. 10</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="stem">2. 若 m 是方程 x²−2x−4=0 的一个根，则 2m²−4m+100 的值为（&nbsp;&nbsp;&nbsp;&nbsp;）<span class="tag">整体代入</span></div>
+      <div class="options">
+        <div>A. 104</div><div>B. 106</div><div>C. 108</div><div>D. 110</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="stem">3. 关于 x 的一元二次方程 kx²−2x+1=0 有两个不相等的实数根，则 k 的取值范围是（&nbsp;&nbsp;&nbsp;&nbsp;）<span class="tag">含参方程</span></div>
+      <div class="options">
+        <div>A. k&lt;1</div><div>B. k&lt;1 且 k≠0</div><div>C. k≤1 且 k≠0</div><div>D. k&gt;0</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="stem">4. 某出租车收费标准：3 km 以内（含 3 km）收费 8 元，超过 3 km 的部分每千米收费 2 元。下列说法<b>错误</b>的是（&nbsp;&nbsp;&nbsp;&nbsp;）<span class="tag">分段函数</span></div>
+      <div class="options">
+        <div>A. 行驶 2 km 收费 8 元</div>
+        <div>B. 行驶 5 km 收费 12 元</div>
+        <div>C. 收费 y（元）与路程 x（km）的关系式为 y=2x+2（x&gt;3）</div>
+        <div>D. 行驶 10 km 收费 24 元</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>二、填空题（每题 3 分，共 12 分）</h2>
+
+    <div class="q">
+      <div class="stem">5. 若关于 x 的一元二次方程 (k−3)x²+2x+1=0 有两个不相等的实数根，则 k 的取值范围是<span class="blank">&nbsp;</span>。<span class="tag">含参方程</span></div>
+    </div>
+
+    <div class="q">
+      <div class="stem">6. 若 a 是方程 x²−x−2026=0 的一个根，则 a²−a+1 = <span class="blank">&nbsp;</span>。<span class="tag">整体代入</span></div>
+    </div>
+
+    <div class="q">
+      <div class="stem">7. 若 x₁、x₂ 是方程 x²−4x+3=0 的两个根，则 x₁²+x₂² = <span class="blank">&nbsp;</span>。<span class="tag">韦达定理</span></div>
+    </div>
+
+    <div class="q">
+      <div class="stem">8. 若 α、β 是方程 x²−5x+2=0 的两个实数根，则 α²+5β+αβ 的值为 <span class="blank">&nbsp;</span>。<span class="tag">韦达降次</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>三、解答题（每题 18 分，共 36 分）</h2>
+
+    <div class="q">
+      <div class="stem"><b>9.</b>（18 分）已知关于 x 的一元二次方程 x²−2(m+1)x+m²=0。<span class="tag">含参方程</span></div>
+      <div class="stem">（1）（8 分）若方程有实数根，求 m 的取值范围。</div>
+      <div class="answer-space"></div>
+      <div class="stem">（2）（10 分）若方程的两个实数根分别为 x₁、x₂，且 x₁²+x₂²=20，求 m 的值。</div>
+      <div class="answer-space"></div>
+    </div>
+
+    <div class="q">
+      <div class="stem"><b>10.</b>（18 分）某校组织学生春游：7:00 从学校出发，匀速步行 24 分钟到达距校 2.4 km 的公园；在公园活动 36 分钟；8:00 匀速跑步返回，8:20 回到学校。设离开学校的时间为 x（分钟），离校距离为 y（km）。<span class="tag">分段函数</span></div>
+      <div class="stem">（1）①（4 分）填表：</div>
+      <table style="border-collapse:collapse;margin:6px 0 8px 18px;font-size:14px;">
+        <tr>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">时间 x（min）</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">6</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">24</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">50</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">70</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">距离 y（km）</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">&nbsp;</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">&nbsp;</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">&nbsp;</td>
+          <td style="border:1px solid #1A1B1C;padding:4px 14px;">&nbsp;</td>
+        </tr>
+      </table>
+      <div class="stem">②（2 分）返回速度为 ______ km/min。</div>
+      <div class="stem">（2）（6 分）当 0≤x≤60 时，写出 y 关于 x 的分段函数解析式。</div>
+      <div class="answer-space-sm"></div>
+      <div class="stem">（3）（6 分）当 60&lt;x≤80 时，写出返回段的函数解析式，并求 x=65 时离校的距离。</div>
+      <div class="answer-space"></div>
+    </div>
+  </div>
+
+  <div class="score-line">总分：______ / 60</div>
+</div>
+
+<!-- ============ 答案与解析页 ============ -->
+<div class="page page-break ans">
+  <div class="header">
+    <h1>答案与解析（家长用）</h1>
+    <div class="meta">先让孩子独立完成，再对照本页批改</div>
+  </div>
+
+  <div class="section">
+    <h2>一、单选题</h2>
+    <div class="ans-item"><b>1. C</b> <span class="exp">α 是根 → α²=3α+2；原式 = 3α+2+αβ+3β = 3(α+β)+2+αβ。韦达：α+β=3，αβ=−2，代入 = 9−2+2 = <b>9</b>。</span><div class="method">方法：先用根的等式把 α² 降成一次式，再用韦达定理整体代。</div></div>
+    <div class="ans-item"><b>2. C</b> <span class="exp">m 是根 → m²−2m−4=0 → m²−2m=4 → 2m²−4m=8 → 8+100 = <b>108</b>。</span><div class="method">方法：不求根，先由方程解出整体式子 m²−2m 的值，再倍率代入。</div></div>
+    <div class="ans-item"><b>3. B</b> <span class="exp">①二次项系数 k≠0；②Δ=4−4k&gt;0 → k&lt;1。取交集：<b>k&lt;1 且 k≠0</b>。</span><div class="method">方法：含参一元二次方程两个条件——二次项系数≠0 ＋ 判别式条件，一个都不能漏。</div></div>
+    <div class="ans-item"><b>4. D</b> <span class="exp">D 应为 8+2×(10−3)=8+14=<b>22</b> 元，不是 24。C：y=8+2(x−3)=2x+2（x&gt;3）正确。</span><div class="method">方法：分段计价——前 3 km 含在起步价里，超出部分才按每千米计价；"每千米"要看从第几千米起算。</div></div>
+  </div>
+
+  <div class="section">
+    <h2>二、填空题</h2>
+    <div class="ans-item"><b>5.</b> <span class="a">k&lt;4 且 k≠3</span> <span class="exp">k≠3；Δ=4−4(k−3)=16−4k&gt;0 → k&lt;4。交集：k&lt;4 且 k≠3。</span></div>
+    <div class="ans-item"><b>6.</b> <span class="a">2027</span> <span class="exp">a²−a=2026 → 2026+1 = 2027。</span></div>
+    <div class="ans-item"><b>7.</b> <span class="a">10</span> <span class="exp">x₁+x₂=4，x₁x₂=3 → x₁²+x₂²=(x₁+x₂)²−2x₁x₂=16−6=10。</span></div>
+    <div class="ans-item"><b>8.</b> <span class="a">25</span> <span class="exp">α²=5α−2；原式=5α−2+5β+αβ=5(α+β)−2+αβ=5×5−2+2=25。</span></div>
+  </div>
+
+  <div class="section">
+    <h2>三、解答题</h2>
+    <div class="ans-item"><b>9（1）</b> <span class="a">m ≥ −1/2</span><br>
+      <span class="exp">Δ = [−2(m+1)]² − 4·1·m² = 4(m+1)² − 4m² = 4(m²+2m+1) − 4m² = 8m+4。<br>有实数根 → Δ≥0 → 8m+4≥0 → m ≥ −1/2。注意：二次项系数 1≠0，无需额外条件。</span></div>
+    <div class="ans-item"><b>9（2）</b> <span class="a">m = −2+2√3</span><br>
+      <span class="exp">韦达：x₁+x₂=2(m+1)，x₁x₂=m²。<br>x₁²+x₂² = (x₁+x₂)²−2x₁x₂ = 4(m+1)²−2m² = 20 → 4(m²+2m+1)−2m²=20 → 2m²+8m−16=0 → m²+4m−8=0 → m = −2±2√3。<br>结合（1）m ≥ −1/2：−2−2√3 ≈ −5.46 舍去，m = <b>−2+2√3</b>。</span>
+      <div class="method">方法：看到 x₁、x₂ 先写韦达定理；x₁²+x₂² 用 (和)²−2(积) 转化；解出的 m 必须回代范围检验。</div></div>
+    <div class="ans-item"><b>10（1）①</b> <span class="a">0.6 ｜ 2.4 ｜ 2.4 ｜ 1.2</span><br>
+      <span class="exp">去程速度 = 2.4÷24 = 0.1 km/min → 6 分钟 0.6 km；24 分钟到公园 2.4 km；50 分钟仍在公园（24~60 停留）→ 2.4 km；70 分钟：已返回 10 分钟（60~80 返回），2.4 − 0.12×10 = 1.2 km。</span></div>
+    <div class="ans-item"><b>10（1）②</b> <span class="a">0.12 km/min</span> <span class="exp">2.4 ÷ 20 分钟 = 0.12 km/min。</span></div>
+    <div class="ans-item"><b>10（2）</b> <span class="a">y = 0.1x（0≤x≤24）；y = 2.4（24&lt;x≤60）</span><br>
+      <span class="exp">三段：去程 y=0.1x；公园停留 y=2.4（水平段）；返回 y=2.4−0.12(x−60)=9.6−0.12x。</span></div>
+    <div class="ans-item"><b>10（3）</b> <span class="a">y = 9.6 − 0.12x（60&lt;x≤80）；x=65 时 y=1.8 km</span><br>
+      <span class="exp">x=65 → 9.6 − 0.12×65 = 9.6 − 7.8 = 1.8 km。</span>
+      <div class="method">方法：分段函数每段先写区间再写解析式；停留段是水平线 y=常数；速度 = 路程 ÷ 时间，算完检查数量级。</div></div>
+  </div>
+
+  <div class="section">
+    <h2>验收标准</h2>
+    <table class="criteria">
+      <tr><th>知识点</th><th>对应题</th><th>过关标准</th><th>是否通过</th></tr>
+      <tr><td>韦达降次</td><td>1、7、8</td><td>3 题中对 ≥2 题</td><td>□</td></tr>
+      <tr><td>整体代入</td><td>2、6</td><td>2 题中对 ≥1 题</td><td>□</td></tr>
+      <tr><td>含参方程</td><td>3、5、9(1)</td><td>3 处中对 ≥2 处</td><td>□</td></tr>
+      <tr><td>分段函数</td><td>4、10</td><td>10 题（填表+两段解析式）对一半以上</td><td>□</td></tr>
+    </table>
+    <div class="verdict">
+      <b>总判定：得分 ≥ 48 分（80%）→ 四个方法基本掌握，可进入下一轮；低于 48 分 → 按上表"未通过"的知识点，回到对应方法课重学后，重做该知识点的题（只重做未过的部分）。</b>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
