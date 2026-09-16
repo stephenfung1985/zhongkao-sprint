@@ -23,6 +23,7 @@ import http.server
 import socketserver
 import json
 import os
+import re
 import sys
 import shutil
 import datetime
@@ -107,7 +108,60 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store, must-revalidate")
         self.send_header("Pragma", "no-cache")
         self.send_header("Expires", "0")
+        if not self.path.startswith("/api/"):
+            # 告诉浏览器这个站点的文件可以分段取 —— 播客音频靠它拖进度条
+            self.send_header("Accept-Ranges", "bytes")
         super().end_headers()
+
+    # ---------- 分段下载（HTTP Range）----------
+    # 标准库的 SimpleHTTPRequestHandler 不认 Range，一律整个文件返回 200。
+    # 网页和图片无所谓，但播客是一个十几分钟、好几兆的 mp3：
+    # 不支持 Range，进度条就拖不动，也没法从中间接着听。
+    def _serve_range(self, rng):
+        p = self.translate_path(self.path)
+        if not os.path.isfile(p):
+            return super().do_GET()
+        size = os.path.getsize(p)
+
+        m = re.match(r"bytes=(\d*)-(\d*)$", rng.strip())
+        if not m:
+            return super().do_GET()
+        s, e = m.group(1), m.group(2)
+        if s == "":                       # bytes=-500 → 最后 500 字节
+            if e == "":
+                return super().do_GET()
+            start, end = max(0, size - int(e)), size - 1
+        else:
+            start = int(s)
+            end = int(e) if e else size - 1
+        end = min(end, size - 1)
+        if start > end or start >= size:
+            self.send_response(416)
+            self.send_header("Content-Range", "bytes */%d" % size)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+
+        length = end - start + 1
+        ctype = self.guess_type(p)
+        self.send_response(206)
+        self.send_header("Content-Type", ctype)
+        self.send_header("Content-Range", "bytes %d-%d/%d" % (start, end, size))
+        self.send_header("Content-Length", str(length))
+        self.end_headers()
+        with open(p, "rb") as f:
+            f.seek(start)
+            remaining = length
+            while remaining > 0:
+                chunk = f.read(min(64 * 1024, remaining))
+                if not chunk:
+                    break
+                try:
+                    self.wfile.write(chunk)
+                except (BrokenPipeError, ConnectionResetError):
+                    # 用户拖进度条时浏览器会主动掐断上一段请求，属正常
+                    return
+                remaining -= len(chunk)
 
     def _json(self, obj, code=200):
         body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
@@ -124,6 +178,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return self._json({"ok": True, "data": data})
         if self.path.startswith("/api/ping"):
             return self._json({"ok": True, "file": DATA_FILE})
+        rng = self.headers.get("Range")
+        if rng:
+            return self._serve_range(rng)
         return super().do_GET()
 
     def do_POST(self):
