@@ -118,6 +118,11 @@ def main():
         log("已经合成成功的段落有缓存，重跑只补缺的那些，很快。")
         return 1
 
+    # 垫背景音乐。这一步失败不算整期失败 —— 没有音乐的节目照样能听，
+    # 所以这里只记一笔，不 return。
+    if not run([sys.executable, os.path.join(ROOT, "配乐.py"), today], "垫背景音乐"):
+        log("音乐没垫上，但音频是好的，照常能放。")
+
     mp3 = os.path.join(ROOT, "音频", today + ".mp3")
     if os.path.exists(mp3):
         log("完成：播客/音频/%s.mp3（%.1f MB）"
