@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-配乐.py — 给合成好的播客垫一层舒缓的背景音乐
+配乐.py — 给合成好的播客垫一层节奏欢快一些的背景音乐
 
 输入：播客/音频/YYYY-MM-DD.mp3（由 合成音频.py 产出的纯人声）
 输出：同一个文件，混好音乐之后原地替换
@@ -23,9 +23,14 @@
   以后每次都从那份备份重新混。所以这个脚本可以随便重跑。
 
 音乐是**现场用 numpy 算出来的**，不是下载的素材：
-  一段 C 大调的慢和弦垫底（C - Am - F - G 循环），
-  正弦波叠三次谐波、两路微失谐做出暖感，再加一个很慢的呼吸起伏。
-  没有鼓、没有旋律线，不会把注意力从讲课内容上拽走，也没有版权问题。
+  底层是 C 大调和弦垫底，走的是流行乐最常见的「欢快」进行
+  C - G - Am - F，比小调多的大调五级、四级让色彩更明亮；
+  和弦每 4.3 秒换一轮（原来是 20 秒），转得更勤，听感更有向前走的劲头。
+  上面叠一条按八分音符（112 拍/分）跳动的分解和弦「拨弦」声部——
+  短促起振、指数衰减，像轻的马林巴——这是「节奏感」真正的来源：
+  纯长音的和弦垫底听不出拍子，加一条会跳的音符线才有。
+  依然没有鼓组、没有人声旋律，音量也不高，不会把注意力从讲课内容
+  上拽走，也没有版权问题（全部现场合成）。
 
 人声一响，音乐自动让路（side-chain ducking）：
   跟着人声的包络实时压低音量 —— 说话时几乎听不见，
@@ -64,11 +69,17 @@ BITRATE = "64k"     # 人声原本是 48k；垫了乐之后给音乐留一点余
 
 # ---- 混音档位（线性增益，不是分贝）----
 MUSIC_UNDER_SPEECH = 0.055   # 说话时：约 -25 dB，垫底但不抢话
-MUSIC_IN_GAPS      = 0.175   # 间隙时：约 -15 dB，让耳朵歇一下
+MUSIC_IN_GAPS      = 0.21    # 间隙时：约 -13 dB，比舒缓版本略高，
+                              # 让分解和弦的跳动节奏在段落间隙里能被听出来
 FADE_IN_SEC        = 4.0
 FADE_OUT_SEC       = 7.0
 DUCK_ATTACK_SEC    = 0.08    # 人声一起来，音乐迅速让开
 DUCK_RELEASE_SEC   = 1.10    # 人声停了，音乐慢慢浮回来（快了会「一跳一跳」）
+
+# ---- 节奏参数 ----
+BPM = 112                    # 比原来的纯长音明显快，是「欢快」的主要来源
+BEAT_SEC   = 60.0 / BPM
+EIGHTH_SEC = BEAT_SEC / 2.0
 
 
 def ffmpeg_exe():
@@ -134,23 +145,31 @@ def _note(freq, n, t):
     return out * 0.5
 
 
+# 流行乐最常见的「欢快」四和弦进行：C - G - Am - F（I-V-vi-IV）。
+# 拨弦声部和长音垫底共用同一套和弦，保证两条线永远合拍。
+CHORDS = [
+    (130.81, 196.00, 261.63, 329.63, 392.00),   # C     C3 G3 C4 E4 G4
+    (98.00,  196.00, 246.94, 293.66, 392.00),   # G     G2 G3 B3 D4 G4
+    (110.00, 164.81, 220.00, 329.63, 392.00),   # Am    A2 E3 A3 E4 G4
+    (87.31,  174.61, 261.63, 349.23, 440.00),   # F     F2 F3 C4 F4 A4
+]
+NOTES_PER_CHORD = 16                                  # 2 小节（每小节 8 个八分音符）
+CHORD_SEC = NOTES_PER_CHORD * EIGHTH_SEC              # ≈4.29 秒，比原来的 20 秒快得多
+
+
 def make_pad(total_samples):
     """
-    C 大调四和弦循环：Cmaj9 → Am7 → Fmaj7 → G6。
-    每个和弦 20 秒，相邻和弦用 8 秒交叉淡入淡出，接缝听不出来。
+    和弦长音垫底，走 CHORDS 的进行，每个和弦持续一轮 CHORD_SEC，
+    相邻和弦用 1.2 秒交叉淡入淡出，接缝听不出来。
+    换得比原来的舒缓版本快很多，本身就是「欢快感」的一部分。
     """
     t = np.arange(total_samples, dtype=np.float32) / SR
 
-    chords = [
-        (130.81, 196.00, 261.63, 329.63, 392.00),   # Cmaj9  C3 G3 C4 E4 G4
-        (110.00, 164.81, 220.00, 329.63, 392.00),   # Am7    A2 E3 A3 E4 G4
-        (87.31,  174.61, 261.63, 349.23, 440.00),   # Fmaj7  F2 F3 C4 F4 A4
-        (98.00,  196.00, 246.94, 293.66, 392.00),   # G6     G2 G3 B3 D4 G4
-    ]
+    chords = CHORDS
 
-    hold = int(20.0 * SR)      # 每个和弦持续
-    fade = int(8.0 * SR)       # 交叉淡入淡出
-    step = hold - fade         # 下一个和弦的起点
+    hold = int(CHORD_SEC * SR)     # 每个和弦持续
+    fade = int(1.2 * SR)           # 交叉淡入淡出
+    step = hold - fade             # 下一个和弦的起点
 
     pad = np.zeros(total_samples + hold, dtype=np.float32)
     seg_t = np.arange(hold, dtype=np.float32) / SR
@@ -174,12 +193,67 @@ def make_pad(total_samples):
 
     pad = pad[:total_samples]
 
-    # 很慢的「呼吸」：0.045 Hz，约 22 秒一个来回，幅度 ±12%
-    breath = 1.0 + 0.12 * np.sin(2 * np.pi * 0.045 * t).astype(np.float32)
+    # 呼吸起伏：0.09 Hz，约 11 秒一个来回，幅度 ±12%——比舒缓版本快了一倍，
+    # 跟更快的和弦节奏合拍
+    breath = 1.0 + 0.12 * np.sin(2 * np.pi * 0.09 * t).astype(np.float32)
     pad *= breath
 
     peak = float(np.max(np.abs(pad))) or 1.0
     return (pad / peak).astype(np.float32)
+
+
+def _pluck(freq, n, t):
+    """
+    短促的「拨弦」音色：极快起振（6 毫秒）+ 指数衰减（0.35 秒），
+    叠二次、三次谐波增加亮度。这是「欢快」的节奏来源——
+    纯长音的和弦垫底本身听不出拍子。
+    """
+    phase = 2 * np.pi * freq * t
+    wave = (np.sin(phase)
+            + 0.35 * np.sin(2 * phase)
+            + 0.15 * np.sin(3 * phase)).astype(np.float32)
+    decay = np.exp(-t / 0.35).astype(np.float32)
+    attack = np.minimum(t / 0.006, 1.0).astype(np.float32)
+    return wave * decay * attack * 0.6
+
+
+def make_arpeggio(total_samples):
+    """
+    跟着 CHORDS 的和弦走向，按八分音符逐个「弹」出分解和弦
+    （根音-三音-五音-八度来回起伏），形成向前走的律动。
+    只有一条单音线，音量也不大，不会盖过人声，
+    但足够让间隙里的音乐听出「拍子」。
+    """
+    step_n = int(round(EIGHTH_SEC * SR))
+    pattern = [0, 1, 2, 1, 3, 2, 1, 0]       # 一小节内的旋律走向：上行再回落
+    note_len = step_n * 2                    # 音符长度盖过下一次起音，靠衰减自然收尾
+
+    out = np.zeros(total_samples + note_len, dtype=np.float32)
+    i = 0
+    k = 0
+    while i < total_samples:
+        notes = CHORDS[k % len(CHORDS)]
+        for _ in range(NOTES_PER_CHORD // len(pattern)):
+            for idx in pattern:
+                if i >= total_samples:
+                    break
+                f = notes[idx % len(notes)] * 2   # 高八度，和长音垫底区分开
+                seg_n = min(note_len, len(out) - i)
+                tt = np.arange(seg_n, dtype=np.float32) / SR
+                out[i:i + seg_n] += _pluck(f, seg_n, tt)
+                i += step_n
+        k += 1
+
+    return out[:total_samples]
+
+
+def make_music(total_samples):
+    """长音垫底 + 拨弦律动叠在一起，归一化到统一的峰值。"""
+    pad = make_pad(total_samples)
+    arp = make_arpeggio(total_samples)
+    mixed = pad * 0.8 + arp * 0.55
+    peak = float(np.max(np.abs(mixed))) or 1.0
+    return (mixed / peak).astype(np.float32)
 
 
 def duck_gain(speech):
@@ -224,7 +298,7 @@ def _db(x):
 
 def mix(speech):
     n = len(speech)
-    music = make_pad(n) * duck_gain(speech)[:n]
+    music = make_music(n) * duck_gain(speech)[:n]
 
     t = np.arange(n, dtype=np.float32) / SR
     if n > FADE_IN_SEC * SR:
